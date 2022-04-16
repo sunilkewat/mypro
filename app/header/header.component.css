@@ -1,0 +1,7 @@
+.banner { 
+        background-image: url('../../../src/assets/img/header.jpg');
+        background-size: cover;
+        height: 80px;
+        background-repeat: round;
+     }
+

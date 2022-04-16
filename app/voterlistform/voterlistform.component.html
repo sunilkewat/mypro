@@ -1,0 +1,125 @@
+<div class="content-wrapper">
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" type="ball-spin-clockwise">
+    </ngx-spinner>
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+       <div class="container-fluid">
+          <div class="row mb-2">
+             <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Votting Form</h1>
+             </div>
+             <!-- /.col -->
+             <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  
+                </ol>
+             </div>
+             <!-- /.col -->
+          </div>
+          <!-- /.row -->
+       </div>
+       <!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <section class="content">
+       <div class="container-fluid">
+          <div class="card">
+             <!-- /.card-header -->
+             <div class="card-body">
+
+              <div class="row">
+                <div class="col-md-12 row">
+                   <div class="col-md-4 mb-2">        
+                      <select class="form-control" id="villageId">
+                         <option value="0" selected>- Village -</option>
+                         <option value="{{bindList.villageId}}" *ngFor="let bindList of getVillageData">{{bindList.villageName}}</option>
+                      </select>
+                     
+                    </div>
+                    <div class="col-md-4 mb-2">       
+                      <button class="btn btn-success" style="padding: 0.125rem .75rem;" (click)="getVoterDataList()">
+                         <i class="fas fa-search" aria-hidden="true"></i> Search</button>                        
+                    </div>
+                </div>
+              </div>
+              <div class="row" >
+                <div class="col-md-4 col-sm-6 col-12" *ngFor="let d of responceData">
+                   <div class="info-box bg-warning" style="background-color: #fbf9f3 !important;border: 1px slolid red;">                 
+                      <div class="info-box-content" style="justify-content: initial;">
+                         <div class="row">
+                            <span class="info-box-text" style="margin-left: 10px;border: 1px solid rgb(15, 15, 15);padding: 5px;">{{d.voterNo}}</span>
+                            <span class="info-box-text" style="padding: 5px;">{{d.voterCardNo}}</span> 
+                            <span class="info-box-text mt-1" style="font-weight: bold;color: red;margin-left: 29%;">
+                              <input type="checkbox" value="{{d.voted}}"> Voted
+                            </span>
+                         </div> 
+                         <table>
+                            <tr>
+                               <td>
+                                  <span class="info-box-text mt-1">Voter Name: </span>
+                               </td>
+                               <td>
+                                  <span class="info-box-text mt-1" style="font-weight: bold;">{{d.name}}</span>
+                               </td>
+                               <td>
+                                <span class="info-box-text mt-1" style="font-weight: bold;color: blue;">
+                                  <input type="checkbox" value="{{d.congress}}"> Congress
+                                </span>
+                             </td>
+                            </tr>
+                            <tr>
+                               <td>
+                                  <span class="info-box-text mt-1">Father Name: </span>
+                               </td>
+                               <td>
+                                  <span class="info-box-text mt-1" style="font-weight: bold;">{{d.guardian}} {{d.surname}}</span>
+                               </td>
+                               <td>
+                                <span class="info-box-text mt-1" style="font-weight: bold;color: blue;">
+                                  <input type="checkbox" value="{{d.bjp}}"> BJP
+                                </span>
+                             </td>
+                            </tr>
+                            <tr>
+                               <td>
+                                  <span class="info-box-text mt-1">Makan No:  </span>
+                               </td>
+                               <td>
+                                  <span class="info-box-text mt-1" style="font-weight: bold;">{{d.houseNo}}</span>
+                               </td>
+                               <td>
+                                <span class="info-box-text mt-1" style="font-weight: bold;color: blue;">
+                                  <input type="checkbox" value="{{d.other}}"> Other
+                                </span>
+                             </td>
+                            </tr>
+                            <tr>
+                               <td>
+                                  <span class="info-box-text mt-1">Age: </span>
+                               </td>
+                               <td>
+                                  <span class="info-box-text mt-1" style="font-weight: bold;">{{d.age}}</span>
+                               </td>
+                               <td>
+                                  <span class="info-box-text mt-1">Gender: </span>
+                               </td>
+                               <td>
+                                  <span class="info-box-text mt-1" style="font-weight: bold;">{{d.gender}}</span>
+                               </td>
+                            </tr>
+                         </table>
+                      </div> 
+                       
+                       
+                    </div>
+                  <!-- /.info-box -->
+                </div> 
+              </div>
+               
+             </div>
+             <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+       </div>
+    </section>
+  </div>

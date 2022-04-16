@@ -1,0 +1,99 @@
+<!-- /.modal -->
+<div class="content-wrapper">
+   <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#ffffff" type="ball-spin-clockwise">
+   </ngx-spinner>
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+       <div class="container-fluid">
+          <div class="row mb-2">
+             <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Booth Allotment</h1>
+             </div>
+             <!-- /.col -->
+             <!-- /.col -->
+          </div>
+          <!-- /.row -->
+       </div>
+       <!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <section class="content">
+       <div class="container-fluid">
+          <div class="card">
+             <!-- /.card-header -->          
+             <div class="card-body">
+            <form>
+              <!-- <form (ngSubmit)="SaveData()"> -->
+                <div class="row">
+                   <div class="col-md-3">
+                      <div class="form-group">
+                      <label>Village Name:</label>
+                         <select class="form-control" id="villageId" name="villageId"  (change)="GetDataBind($event.target.value)">
+                            <option value="0" disabled selected>- Select Village -</option>
+                            <option value="{{bindList.villageId}}" *ngFor="let bindList of getVillageData
+                            ">{{bindList.villageName}}</option>
+                         </select>
+                      </div>
+                      <hr/>
+                      <div class="form-group">
+                        <label>PagePrabhari Name:</label>
+                         <select class="form-control" id="pagePrabhariId" name="pagePrabhariId" >
+                            <option value="0" disabled selected>- Select Page Prabhari -</option>
+                            <option value="{{bindList.pagePrabhariId}}" *ngFor="let bindList of getpageprabhariData">{{bindList.pagePrabhariName}}</option>
+                         </select>
+                      </div>
+                      <div class="form-group">
+                         <button type="button" class="btn btn-info" (click)="SaveData()">Save Allot Data</button>  
+                         <!-- (click)="CreateNew()" -->
+                      </div>
+                   </div>
+                   <div class="col-md-9">
+                      <table class="table table-bordered table-striped" id="tableData">
+                         <thead>
+                            <tr>
+                               <th>#</th>
+                               <th>Ward No</th>
+                               <th>Ward Name</th>
+                               <th>Booth No</th>
+                               <th>Voter Card No</th>
+                               <th>Voter Name</th>
+                               <th>Relation</th>
+                               <th>Guardian</th>
+                               <th>Gender</th>                              
+                               <th>House No</th>
+                            </tr>
+                         </thead>
+                         <tbody>  
+                           <tr *ngFor="let responce of responceData | paginate: {id:'dataTable',itemsPerPage:30, currentPage:pageNo, totalItems:totalRecords }">
+                                <td><input type="checkbox" value="{{responce.voterCardNo}}" checked disabled/></td>
+                              <td>{{responce.wardNo}}</td>
+                               <td>{{responce.wardName}}</td>
+                               <td>{{responce.boothNo}}</td>
+                               <td>{{responce.voterCardNo}}</td>
+                               <td>{{responce.name}} {{surname}}</td>
+                               <td>{{responce.relation}}</td>
+                               <td>{{responce.guardian}}</td>
+                               <td>{{responce.gender}}</td>
+                               <td>{{responce.houseNo}}</td>
+                            </tr>
+                            <!-- <tr *ngIf="!getData">
+                               <td colspan="6" class="text-center">
+                                   <span class="spinner-border spinner-border-lg align-center"></span>
+                               </td>
+                               </tr> -->
+                         </tbody>
+                      </table>
+                      <div style="padding: 5px 0; ">
+                        <p style="float: left">Showing {{totalRecords}} entries</p>
+                         <pagination-controls id="dataTable" maxSize="30" directionLinks="true" (pageChange)="pageNo=$event" style="float: right;"></pagination-controls>
+                      </div>
+                   </div>
+                </div>
+               </form>
+             </div>
+             <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+       </div>
+    </section>
+ </div>

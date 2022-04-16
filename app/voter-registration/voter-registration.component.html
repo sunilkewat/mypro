@@ -1,0 +1,254 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#ffffff" type="ball-spin-clockwise">
+</ngx-spinner>
+
+<div class="modal fade" id="modal-excel_default">
+   <div class="modal-dialog modal-xl ">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Upload Data</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">      
+            
+            <div class="row">
+               <div class="col-md-12 row">                  
+                  <div class="col-md-9 row">
+                     <form style="display: flex;" [formGroup]="UploadForm" #model="ngForm" (ngSubmit)="onUpload(UploadForm.value)">
+                     <div class="col-md-4"> 
+                        <div class="form-group">            
+                        <select class="form-control" id="villageuploadId" name="villageuploadId" formControlName="villageuploadId" [ngClass]="{ 'is-invalid': submitted && f.villageuploadId.errors }">
+                           <option value="" disabled selected>- Select Village -</option>
+                           <option value="{{bindList.villageId}}" *ngFor="let bindList of getVillageData">{{bindList.villageName}} {{bindList.villageWiseVoter}}</option>
+                        </select>
+                       
+                        <div *ngIf="submitted && f.villageuploadId.errors" class="invalid-feedback">
+                           <div *ngIf="f.villageuploadId.errors.required">Village is required</div>
+                          </div>
+                     </div> 
+                     </div>      
+                     <div class="col-md-4">
+                        <div class="form-group">            
+                           <input type="file" (change)="onChange($event)" #inputFile>     
+                        </div>   
+                     </div>      
+                     <div class="col-md-2">
+                        <div class="form-group">            
+                           <button type="button"  class="btn btn-default" (click)="ImportViewExcel()" style="padding: 0.125rem .75rem;">
+                              <i class="fa fa-upload" aria-hidden="true"></i> Upload
+                              </button>
+                        </div>   
+                     </div> 
+                     <div class="col-md-2">
+                        <button class="btn btn-primary" style="padding: 0.125rem .75rem;">
+                           <i class="fas fa-file-import" aria-hidden="true"></i> {{importText}}</button>
+                     </div> 
+                    </form>
+                  </div> 
+                  <div class="col-md-3 row">                     
+                     <div class="col-md-12">
+                        <button class="btn btn-primary" style="padding: 0.125rem .75rem;" (click)="exportexcelsheet()" >
+                           <i class="fa fa-download" aria-hidden="true"></i> Download Excel</button>
+                     </div> 
+                  </div>
+                  <!-- general form elements -->  
+                 
+               </div>
+
+               <div style="overflow: auto;height: 400px;">
+               <table id="excel-table" class="table table-bordered table-striped">
+                  <thead>
+                     <tr> 
+                        <th>#</th>
+                        <th>BoothNo</th>
+                        <th>WardNo</th>
+                        <th>WardName</th>
+                        <th>VoterNo</th>
+                        <th>HouseNo</th>
+                        <th>Name</th>
+                        <th>Relation</th>
+                        <th>Guardian</th>
+                        <th>Surname</th>
+                        <th>Caste</th>
+                        <th>Category</th>
+                        <th>VoterCardNo</th>
+                        <th>Gender</th>
+                        <th>Age</th> 
+                        <th>Contact</th> 
+                        <th>Party</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr *ngFor="let responce of modelArray"> 
+                        <td>{{responce.srNo}}</td>
+                        <td>{{responce.BoothNo}}</td>
+                        <td>{{responce.WardNo}}</td>
+                        <td>{{responce.WardName}}</td>
+                        <td>{{responce.VoterNo}}</td>
+                        <td>{{responce.HouseNo}}</td>
+                        <td>{{responce.Name}}</td>                        
+                        <td>{{responce.Relation}}</td>
+                        <td>{{responce.Guardian}}</td>
+                        <td>{{responce.Surname}}</td>
+                        <td>{{responce.Caste}}</td>
+                        <td>{{responce.category}}</td>
+                        <td>{{responce.VoterCardNo}}</td>
+                        <td>{{responce.Gender}}</td>
+                        <td>{{responce.Age}}</td> 
+                        <td>{{responce.contactNo}}</td>
+                        <td>{{responce.voteStatus}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+               </div>
+
+            </div>
+            <div class="modal-footer">
+              
+            </div> 
+         </div>
+      </div>
+      <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="modal-default">
+   <div class="modal-dialog modal-xl ">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Voter Registration</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">      
+            <form [formGroup]="submitForm" #model="ngForm" (ngSubmit)="onSubmit(submitForm.value)">
+            <div class="row">
+              
+            </div>
+            <div class="modal-footer">
+               <div class="msgagr"></div>
+               <button class="btn btn-default" data-dismiss="modal">Close</button>
+               <button class="btn btn-primary">{{submitText}}</button>
+            </div>
+            </form>
+         </div>
+      </div>
+      <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<div class="content-wrapper">
+   
+   <!-- Content Header (Page header) -->
+   <div class="content-header">
+      <div class="container-fluid">
+         <div class="row mb-2">
+            <div class="col-sm-6">
+               <h1 class="m-0 text-dark">Voters</h1>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+               <ol class="breadcrumb float-sm-right">
+                  <!-- <button type="button" style="margin-right: 10px;" class="btn btn-info" (click)="CreateNew()">
+                  <i class="fa fa-plus" aria-hidden="true"></i> New Registration
+                  </button> -->
+
+                  <button type="button"  class="btn btn-info" (click)="uploadExcel()">
+                     <i class="fa fa-upload" aria-hidden="true"></i> Import Data
+                     </button>
+               </ol>
+            </div>
+            <!-- /.col -->
+         </div>
+         <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+   </div>
+   <!-- /.content-header -->
+   <section class="content">
+      <div class="container-fluid">
+         <div class="card">
+            <!-- /.card-header -->
+            <div class="card-body">
+               <div class="row">
+                  <div class="col-md-12 row">
+                     <div class="col-md-4 mb-2">        
+                        <select class="form-control" id="villageId">
+                           <option value="0" selected>- Village -</option>
+                           <option value="{{bindList.villageId}}" *ngFor="let bindList of getVillageData">{{bindList.villageName}} {{bindList.villageWiseVoter}}</option>
+                        </select>
+                       
+                      </div>
+                      <div class="col-md-4 mb-2">       
+                        <button class="btn btn-success" style="padding: 0.125rem .75rem;" (click)="getVoterDataList()">
+                           <i class="fas fa-search" aria-hidden="true"></i> Search</button>
+                           &nbsp;
+                        <button class="btn btn-danger" style="padding: 0.125rem .75rem;" (click)="DeleteVoterDataList()">
+                           <i class="fas fa-trash" aria-hidden="true"></i> Delete</button>
+                      </div>
+                  </div>
+                </div>
+               <table class="table table-bordered table-striped">
+                  <thead>
+                     <tr>
+                        <th>#</th>
+                        <th>VoterNo</th>
+                        <th>BoothNo</th>
+                        <th>WardNo</th>
+                        <th>WardName</th>
+                        <th>HouseNo</th>
+                        <th>Name</th>
+                        <th>Relation</th>
+                        <th>Guardian</th>
+                        <th>Surname</th>
+                        <th>Caste</th>
+                        <th>Category</th> 
+                        <th>VoterCardNo</th>
+                        <th>Gender</th>
+                        <th>Age</th> 
+                        <th>Contact</th>
+                        <!-- <td>Action</td> -->
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr *ngFor="let responce of responceData | paginate: {id:'dataTable',itemsPerPage:25, currentPage:pageNo, totalItems:totalRecords } | filter:searchText">
+                        <td>{{responce.srNo}}</td>
+                        <td>{{responce.voterNo}}</td>
+                        <td>{{responce.boothNo}}</td>
+                        <td>{{responce.wardNo}}</td>
+                        <td>{{responce.wardName}}</td>
+                        <td>{{responce.houseNo}}</td>
+                        <td>{{responce.name}}</td>                        
+                        <td>{{responce.relation}}</td>
+                        <td>{{responce.guardian}}</td>
+                        <td>{{responce.surname}}</td>
+                        <td>{{responce.caste}}</td>
+                        <td>{{responce.category}}</td>
+                        <td>{{responce.voterCardNo}}</td>
+                        <td>{{responce.gender}}</td>
+                        <td>{{responce.age}}</td> 
+                        <td>{{responce.contactNo}}</td>
+                        <!-- <td>
+                           <div class="actionbtn">
+                              <span class="pointer" (click)="SelectedData(responce)"><i class="fa fa-edit"></i></span>  
+                              <span class="pointer" (click)="DeleteData(responce)"><i class="fa fa-trash"></i></span> 
+                           </div>
+                        </td> -->
+                     </tr>
+                  </tbody>
+               </table>
+               <div style="padding: 5px 0; ">
+                  <p style="float: left">Showing {{totalRecords}} entries</p>
+                  <pagination-controls id="dataTable" maxSize="25" directionLinks="true" (pageChange)="pageNo=$event" style="float: right;"></pagination-controls>
+               </div>
+            </div>
+            <!-- /.card-body -->
+         </div>
+         <!-- /.card -->
+      </div>
+   </section>
+</div>

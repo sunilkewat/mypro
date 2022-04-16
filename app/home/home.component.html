@@ -1,0 +1,2711 @@
+<!-- Content Wrapper. Contains page content -->
+
+
+<div class="content-wrapper" >
+   <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#ffffff" type="ball-spin-clockwise">
+   </ngx-spinner>
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+     <div class="container-fluid" *ngIf="isHeaderhown">
+        <div class="row mb-2">
+         
+         <div class="col-md-12 row">
+            <div class="col-md-6 row">
+               <div class="col-sm-3">
+                  <select class="form-control" id="villageId" (change)="GetvillageDashboardData($event.target.value)">
+                     <option value="0" selected>- Village -</option>
+                     <option value="{{bindList.villageId}}" *ngFor="let bindList of getVillageData">{{bindList.villageName}}</option>
+                  </select>
+               </div>
+               <div class="col-sm-3">
+                <select class="form-control" id="WardId">
+                   <option value="0" selected>- Ward No - </option>
+                   <option value="{{bindList.wardNo}}" *ngFor="let bindList of getWardNoData">{{bindList.wardName}}</option>
+                  </select>
+             </div>
+               <div class="col-sm-3">
+                  <select class="form-control" id="blockId" (change)="GetBlockDashboardData($event.target.value)">
+                     <option value="0" selected>- Block -</option>
+                     <option value="{{bindList.keyId}}" *ngFor="let bindList of blockListArray">{{bindList.keyName}}</option>
+                  </select>
+               </div>
+               <div class="col-sm-3">
+                  <select class="form-control" id="mandalId" (change)="GetMandalDashboardData($event.target.value)">
+                     <option value="0" selected>- Mandal -</option>
+                     <option value="{{bindList.keyId}}" *ngFor="let bindList of mandalListArray">{{bindList.keyName}}</option>
+                  </select>
+               </div>
+            </div>
+            <div class="col-md-6 row">
+               <div class="col-sm-3">
+                  <select class="form-control" id="sectorId" (change)="GetSectorDashboardData($event.target.value)">
+                     <option value="0" selected>- Sector -</option>
+                     <option value="{{bindList.keyId}}" *ngFor="let bindList of sectorListArray">{{bindList.keyName}}</option>
+                  </select>
+               </div>
+               <div class="col-sm-3">
+                <select class="form-control" id="boothId" (change)="GetBoothDashboardData($event.target.value)">
+                   <option value="0" selected>- Booth No -</option>
+                   <option value="{{bindList.boothNo}}" *ngFor="let bindList of getBoothNoData">{{bindList.boothName}}</option>
+                </select>
+             </div>
+             <div class="col-sm-3">
+                <select class="form-control" id="pagePId" (change)="GetPagePDashboardData($event.target.value)">
+                   <option value="0" selected>- Page Prabhari -</option>
+                   <option value="{{bindList.pagePrabhariId}}" *ngFor="let bindList of getPagePrabhariData">{{bindList.pagePrabhariName}}</option>
+                </select>
+             </div>
+               <div class="col-sm-3">
+                <!-- <select class="form-control" id="pollingId" >
+                   <option value="0" selected>Polling - E</option>
+                </select> -->
+                <input type="button" value="E-pooling" (click)="GetE_PoolingDashboardData()" class="btn btn-info"/>
+             </div>  
+            </div>
+         </div>     
+        </div>
+        <!-- /.row -->
+     </div>
+     <!-- /.container-fluid -->
+  </div>  
+  
+   <!-- ####################################################################################################################################### -->
+
+  <!-- Main Home content -->
+   <section class="content">
+      <div class="container-fluid" *ngIf="isHomeShown">
+          
+         <!-- Small boxes (Stat box) -->
+         <div class="row">
+
+            <div class="col-lg-12 row">
+               <div class="col-lg-2">
+                  <!-- small box --> 
+                  <div class="row">
+                     <div class="col-sm-6">
+                      <div class="info-box bg-info" style="min-height: 50px;">
+                           <div class="info-box-content" style="text-align: center;">
+                              <span class="info-box-text">जनसंख्या</span>
+                              <span class="info-box-number">{{allPopulation}}</span>  
+                           </div>
+                           <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                     </div>
+                     <!-- /.col -->
+                     <div class="col-sm-6">
+                      <div class="info-box bg-info" style="min-height: 50px;">
+                         <div class="info-box-content" style="text-align: center;">
+                              <span class="info-box-text">गाँव</span>
+                              <span class="info-box-number">{{allVillage}}</span>  
+                           </div>
+                           <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                     </div>
+                     <!-- /.col -->
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-6">
+                      <div class="info-box bg-info" style="min-height: 50px;">
+                         <div class="info-box-content" style="text-align: center;">
+                              <span class="info-box-text">मतदाता</span>
+                              <span class="info-box-number">{{allVoter}}</span>  
+                           </div>
+                           <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                     </div>
+                     <!-- /.col -->
+                     <div class="col-sm-6">
+                      <div class="info-box bg-info" style="min-height: 50px;">
+                         <div class="info-box-content" style="text-align: center;">
+                              <span class="info-box-text">पंचायत</span>
+                              <span class="info-box-number">{{allpanchayat}}</span>  
+                           </div>
+                           <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                     </div>
+                     <!-- /.col -->
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-6">
+                      <div class="info-box bg-info" style="min-height: 50px;">
+                         <div class="info-box-content" style="text-align: center;">
+                              <span class="info-box-text">जनपद</span>
+                              <span class="info-box-number">{{allJanpad}}</span>  
+                           </div>
+                           <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                     </div>
+                     <!-- /.col -->
+                     <div class="col-sm-6">
+                      <div class="info-box bg-info" style="min-height: 50px;">
+                         <div class="info-box-content" style="text-align: center;">
+                              <span class="info-box-text">ब्लॉक</span>
+                              <span class="info-box-number">{{allBlock}}</span>  
+                           </div>
+                           <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                     </div>
+                     <!-- /.col -->
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-6">
+                      <div class="info-box bg-info" style="min-height: 50px;">
+                         <div class="info-box-content" style="text-align: center;">
+                              <span class="info-box-text">जिला पंचायत</span>
+                              <span class="info-box-number">{{allJilaPanchayat}}</span>  
+                           </div>
+                           <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                     </div>
+                     <!-- /.col -->
+                     <div class="col-sm-6">
+                      <div class="info-box bg-info" style="min-height: 50px;">
+                         <div class="info-box-content" style="text-align: center;">
+                              <span class="info-box-text">मंडल</span>
+                              <span class="info-box-number">{{allMandal}}</span>  
+                           </div>
+                           <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                     </div>
+                     <!-- /.col -->
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-6">
+                        <div class="info-box bg-info" style="min-height: 50px;">
+                         <div class="info-box-content" style="text-align: center;">
+                              <span class="info-box-text">सेक्टर</span>
+                              <span class="info-box-number">{{allSector}}</span>  
+                           </div>
+                           <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                     </div>
+                     <!-- /.col -->
+                     <div class="col-sm-6">
+                      <div class="info-box bg-info" style="min-height: 50px;">
+                         <div class="info-box-content" style="text-align: center;">
+                              <span class="info-box-text">बूथ</span>
+                              <span class="info-box-number">{{allBooth}}</span>  
+                           </div>
+                           <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                     </div>
+                     <!-- /.col -->
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-6">
+                      <div class="info-box bg-info" style="min-height: 50px;">
+                         <div class="info-box-content" style="text-align: center;">
+                              <span class="info-box-text">वार्ड न. पा</span>
+                              <span class="info-box-number">{{allWardNoPa}}</span>  
+                           </div>
+                           <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                     </div>
+                     <!-- /.col -->
+                     <div class="col-sm-6">
+                      <div class="info-box bg-info" style="min-height: 50px;">
+                         <div class="info-box-content" style="text-align: center;">
+                              <span class="info-box-text">मजदुर</span>
+                              <span class="info-box-number">{{allWorker}}</span>  
+                           </div>
+                           <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                     </div>
+                     <!-- /.col -->
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-6">
+                      <div class="info-box bg-info" style="min-height: 50px;">
+                         <div class="info-box-content" style="text-align: center;">
+                              <span class="info-box-text">किसान</span>
+                              <span class="info-box-number">{{allFarmar}}</span>  
+                           </div>
+                           <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                     </div>
+                     <!-- /.col -->
+                     <div class="col-sm-6">
+                      <div class="info-box bg-info" style="min-height: 50px;">
+                         <div class="info-box-content" style="text-align: center;">
+                              <span class="info-box-text">परिवार</span>
+                              <span class="info-box-number">{{allFamily}}</span>  
+                           </div>
+                           <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                     </div>
+                     <!-- /.col -->
+                  </div>
+               </div>
+               <div class="col-lg-10 row">
+                <!-- ./col -->
+            <div class="col-lg-4">
+               <!-- small box --> 
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                  <div class="small-box" style="width: 100%;background: white;">
+                     <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Category </a>
+                     <div class="inner row" style="height: 220px;">
+                        <div *ngFor="let d1 of categoryModelArray | slice:0:5" class="col-lg-6" style="text-align: center;">                         
+                           <h4 style="color: #056905;">{{d1.categoryName}}</h4>
+                           <h4 style="color: #9f0f0f;">{{d1.total}}</h4>
+                        </div>
+                     </div> 
+                     <a style="cursor: pointer;" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                   </div>
+               </div>
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                  <div class="small-box" style="width: 100%;background: white;">
+                     <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Caste Wise </a>
+                     <div class="inner row" style="height: 220px;">
+                        <table class="table borderless" style="margin-bottom: 0px;">
+                           <tbody>
+                              <tr> 
+                                 <th style="color: #9f0f0f;">Name</th>
+                                 <th style="color: #9f0f0f;">Total</th>
+                              </tr>
+                              <tr *ngFor="let d1 of casteModelArray | slice:0:5" style="font-size: 17px;">
+                                 <td style="color: #056905;">{{d1.casteName}}</td>
+                                 <td style="color: #056905;">{{d1.total}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>     
+                     <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-CastewiseList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>       
+                  </div>
+               </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-4">
+               <!-- small box -->
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                  <div class="small-box" style="width: 100%;background: white;">
+                     <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Age Wise </a>
+                     <div class="inner row" style="height: 220px;">
+                        <table class="table borderless" style="margin-bottom: 0px;">
+                           <tbody>
+                              <tr>
+                                 <th>Age</th>
+                                 <th>Male</th>
+                                 <th>Female</th>
+                                 <th>Others</th>
+                                 <th>Total</th>
+                              </tr>                             
+                              <tr *ngFor="let d of ageModelArray | slice:0:5" style="font-size: 17px;">
+                                 <td>{{d.ageLimit}}</td>
+                                 <td>{{d.male}}</td>
+                                 <td>{{d.female}}</td>
+                                 <td>{{d.other}}</td>
+                                 <td><span class="label label-success">{{d.total}}</span></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>   
+                     <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-AgewiseList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>      
+                  </div>
+               </div>
+ 
+               <!-- small box -->
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                 <div class="small-box" style="width: 100%;background: white;">
+                    <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;">
+                     <i class="fas fa-users"></i> Business Wise </a>
+                    <div class="inner row" style="height: 220px;"> 
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                       <tbody>
+                          <tr>
+                             <th>Name</th>
+                             <th>Total</th>
+                          </tr>
+                          <tr *ngFor="let d1 of bussinessModelArray | slice:0:4" style="font-size: 17px;">
+                             <td>{{d1.occuptionName}}</td>
+                             <td>{{d1.totalvoter}}</td>
+                          </tr>
+                       </tbody>
+                    </table>
+                    </div>    
+                    <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-BusinesswiseList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>          
+                 </div>
+              </div>
+            </div>
+            <!-- ./col -->     
+            <!-- ./col -->
+            <div class="col-lg-4">
+             <div class="row" style="padding: 0 5px 0px 5px;">
+               <div class="small-box" style="width: 100%;background: white;">
+                  <a class="small-box-footer" style="background: #343a40 ;color: #fff !important;font-size: 20px;"> Assembly
+                   <select style="float:right;padding:5px 0px 5px 0;border: 1px solid #ced4da;font-size: 13px;" id="assemblyId" (change)="GetHomeElectionResult($event.target.value)">
+                     <option value="0" selected disabled>- Select Assembly -</option>
+                     <option value="{{bindList.electionId}}" *ngFor="let bindList of getData">{{bindList.electionName}} - {{bindList.electionYear}}</option>
+                   </select>  
+                 </a>
+                  <div class="inner row" style="height: 220px;">
+                   <table class="table borderless" style="margin-bottom: 0px;">
+                     <tbody>
+                        <tr > 
+                           <th>Booth</th>
+                           <th>Congress</th>
+                           <th>BJP</th>
+                           <th>Others</th> 
+                           <th>Total</th> 
+                        </tr>
+                        <tr *ngFor="let responce of homeAssemblydataList | slice:0:4" style="font-size: 15px;">
+                           <td>{{responce.boothNo}}</td>
+                           <td>{{responce.congress}}</td>
+                           <td>{{responce.bjp}}</td>
+                           <td>{{responce.other}}</td> 
+                           <td>{{responce.total}}</td> 
+                        </tr>                        
+                     </tbody> 
+                     <tfoot >
+                       <tr>
+                          <th>Total: </th>
+                          <th>{{congressTotal}}</th>
+                          <th>{{bjpTotal}}</th>
+                          <th>{{otherTotal}}</th> 
+                          <th></th> 
+                       </tr> 
+                       <tr>
+                          <th colspan="2">Total Vote: </th>
+                          <th colspan="3">{{congressTotal + bjpTotal + otherTotal}}</th>
+                       </tr>
+                    </tfoot>
+                  </table>
+                  </div>  
+                  <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-assemblyList_Home" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>    
+               </div> 
+            </div> 
+                <!-- ./col -->
+                <div class="row" style="padding: 0 5px 0px 5px;">
+                  <div style="display: block">
+                     <canvas baseChart
+                             [data]="pieChartData"
+                             [labels]="pieChartLabels"                        
+                             [chartType]="pieChartType" 
+                             (chartHover)="chartHovered($event)"
+                             (chartClick)="chartClicked($event)"></canvas>
+                   </div>
+
+                </div>
+
+            </div>
+            <!-- ./col -->  
+               </div>
+            </div>
+ 
+
+           
+           
+         </div>
+        
+         <!-- /.row -->      
+      </div>
+      <!-- /.container-fluid -->
+   </section>
+   <!-- /.content-wrapper -->
+
+   <!-- ####################################################################################################################################### -->
+
+   <!-- Main Village content -->
+   <section class="content">
+      <div class="container-fluid" *ngIf="isVillageShown">        
+         <!-- Small boxes (Stat box) -->
+         <div class="row">
+             <!-- ./col -->
+             <div class="col-lg-3">
+               <!-- small box -->
+               <h2 style="padding: 5px 5px 5px 5px;background: #f7840b;color: white;font-size: 1.7em;text-align: center;">Village: {{villageName}}</h2>
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                   <div class="small-box" style="width: 100%;background: white;">
+                     <!-- <a class="small-box-footer" style="background: #690505;color: #fff !important;"><i class="fas fa-users"></i> Age Wise </a> -->
+                   
+                     <div>
+                        <table class="table borderless" style="margin-bottom: 0px;">
+                           <tbody> 
+                              <tr class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;">
+                                 <th>Post</th>
+                                 <th>Name</th>
+                                 <th>Contact</th> 
+                              </tr>
+                              <tr *ngFor="let d of govtEmployeeArray | slice:0:5" style="font-size: 17px;">
+                                 <td>{{d.post}}</td>
+                                 <td>{{d.name}}</td>
+                                 <td>{{d.contactNo}}</td>
+                              </tr> 
+                           </tbody>
+                        </table>
+                     </div>        
+                     <a style="cursor: pointer;" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>     
+                  </div>
+               </div>
+ 
+               <!-- small box -->
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                  <div class="small-box" style="width: 100%;background: white;">
+                    <!-- <a class="small-box-footer" style="background: #690505;color: #fff !important;"><i class="fas fa-users"></i> Business Wise </a> -->
+                    <div class="inner row" > 
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                       <tbody>                           
+                          
+                          <tr style="font-size: 16px;">
+                           <th>{{villageInfoArray.panchayatName}}</th>
+                           <td>{{villageInfoArray.panchayat}}</td>
+                        </tr>
+                          <tr style="font-size: 16px;">
+                           <th>{{villageInfoArray.janpatPanchayatName}}</th>
+                           <td>{{villageInfoArray.janpatPanchayat}}</td>
+                        </tr>
+                        <tr style="font-size: 16px;">
+                           <th>{{villageInfoArray.districtPanchayatName}}</th>
+                           <td>{{villageInfoArray.districtPanchayat}}</td>
+                        </tr>
+                        <tr style="font-size: 16px;">
+                           <th>{{villageInfoArray.blockName}}</th>
+                           <td>{{villageInfoArray.block}}</td>
+                        </tr>
+                        <tr style="font-size: 16px;">
+                           <th>{{villageInfoArray.mandalName}}</th>
+                           <td>{{villageInfoArray.mandal}}</td>
+                        </tr>
+                        <tr style="font-size: 16px;">
+                           <th>{{villageInfoArray.sectorName}}</th>
+                           <td>{{villageInfoArray.sector}}</td>
+                        </tr>
+                        <tr style="font-size: 16px;">
+                           <th>{{villageInfoArray.boothNoName}}</th>
+                           <td>{{villageInfoArray.boothNo}}</td>
+                        </tr>
+                       </tbody>
+                    </table>
+                    </div>          
+                 </div>
+              </div>
+            </div>
+            <!-- ./col -->    
+
+            <div class="col-lg-2">
+               <!-- small box --> 
+               <div class="row">
+                  <div class="col-sm-12">
+                   <div class="info-box bg-info" style="min-height: 50px;background-color: #191588 !important;">
+                        <div class="info-box-content" style="text-align: center;">
+                           <span class="info-box-text">जनसंख्या</span>
+                           <span class="info-box-number">{{allPopulation}}</span>  
+                        </div>
+                        <!-- /.info-box-content -->
+                     </div>
+                     <!-- /.info-box -->
+                  </div>                  
+                  <div class="col-sm-12">
+                   <div class="info-box bg-info" style="min-height: 50px;background-color: #191588 !important;">
+                      <div class="info-box-content" style="text-align: center;">
+                           <span class="info-box-text">मतदाता</span>
+                           <span class="info-box-number">{{allVoter}}</span>  
+                        </div>
+                        <!-- /.info-box-content -->
+                     </div>
+                     <!-- /.info-box -->
+                  </div>                   
+                
+               </div>
+               <div class="row">
+                  <div class="col-sm-12">
+                   <div class="info-box bg-info" style="min-height: 50px;background-color: #191588 !important;">
+                      <div class="info-box-content" style="text-align: center;">
+                           <span class="info-box-text">किसान</span>
+                           <span class="info-box-number">{{allFarmar}}</span>  
+                        </div>
+                        <!-- /.info-box-content -->
+                     </div>
+                     <!-- /.info-box -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-12">
+                   <div class="info-box bg-info" style="min-height: 50px;background-color: #191588 !important;">
+                      <div class="info-box-content" style="text-align: center;">
+                           <span class="info-box-text">BPL - परिवार</span>
+                           <span class="info-box-number">{{allBPLFamily}}</span>  
+                        </div>
+                        <!-- /.info-box-content -->
+                     </div>
+                     <!-- /.info-box -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-12">
+                     <div class="info-box bg-info" style="min-height: 50px;background-color: #191588 !important;">
+                        <div class="info-box-content" style="text-align: center;">
+                             <span class="info-box-text">परिवार</span>
+                             <span class="info-box-number">{{allAPLFamily}}</span>  
+                          </div>
+                          <!-- /.info-box-content -->
+                       </div>
+                       <!-- /.info-box -->
+                    </div>
+               </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-4">
+               <!-- small box --> 
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                   <div class="small-box" style="width: 100%;background: white;">
+                     <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;">
+                        <i class="fas fa-users"></i> Leader Of Congress </a>
+                     <div class="inner row" style="height: 145px;"> 
+                      <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr>
+                              <th>Name</th>
+                              <th>Father</th>
+                              <th>Contact No</th>
+                              <th>Caste</th>
+                           </tr>
+                           <tr *ngFor="let d1 of partyLeaderArray | slice:0:5" style="font-size: 16px;">
+                              <td>{{d1.leaderName}}</td>
+                              <td>{{d1.father}}</td>
+                              <td>{{d1.contactNo}}</td>
+                              <td>{{d1.caste}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     </div> 
+                     <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-partyLeaderwiseList"  class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>             
+                  </div>
+               </div>              
+
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                   <div class="small-box" style="width: 100%;background: white;">
+                     <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;">
+                        <i class="fas fa-users"></i> Leader Of Opposition </a>
+                     <div class="inner row" style="height: 145px;"> 
+                      <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr>
+                              <th>Name</th>
+                              <th>Father</th>
+                              <th>Contact No</th>
+                              <th>Caste</th>
+                           </tr>
+                           <tr *ngFor="let d1 of oppositionLeaderArray | slice:0:5" style="font-size: 16px;">
+                              <td>{{d1.leaderName}}</td>
+                              <td>{{d1.father}}</td>
+                              <td>{{d1.contactNo}}</td>
+                              <td>{{d1.caste}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     </div>    
+                     <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-oppositLeaderwiseList"  class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>          
+                  </div>
+               </div>  
+
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                   <div class="small-box" style="width: 100%;background: white;">
+                     <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Age Wise </a>
+                     <div class="inner row" style="height: 255px;">
+                        <table class="table borderless" style="margin-bottom: 0px;">
+                           <tbody>
+                              <tr>
+                                 <th>Age</th>
+                                 <th>Male</th>
+                                 <th>Female</th>
+                                 <th>Others</th>
+                                 <th>Total</th>
+                              </tr>
+                              <tr *ngFor="let d of ageModelArray | slice:0:4" style="font-size: 17px;">
+                                 <td>{{d.ageLimit}}</td>
+                                 <td>{{d.male}}</td>
+                                 <td>{{d.female}}</td>
+                                 <td>{{d.other}}</td>
+                                 <td><span class="label label-success">{{d.total}}</span></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>  
+                     <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-AgewiseList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>           
+                  </div>
+               </div>
+            </div>            
+            <!-- ./col -->
+            <div class="col-lg-3">            
+            <div class="row" style="padding: 0 5px 0px 5px;">
+                <div class="small-box" style="width: 100%;background: white;">
+                  <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Category </a>
+                  <div class="inner row" style="height: 175px;">
+                     <div *ngFor="let d1 of categoryModelArray" class="col-lg-6">
+                        {{d1.categoryName}} 
+                        <h4>{{d1.total}}</h4>
+                     </div>
+                  </div> 
+               </div>
+            </div>
+            <div class="row" style="padding: 0 5px 0px 5px;">
+                <div class="small-box" style="width: 100%;background: white;">
+                  <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Caste Wise </a>
+                  <div class="inner row" style="height: 145px;">
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr>
+                              <th>Name</th>
+                              <th>Total</th>
+                           </tr>
+                           <tr *ngFor="let d1 of casteModelArray | slice:0:5" style="font-size: 17px;">
+                              <td>{{d1.casteName}}</td>
+                              <td>{{d1.total}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>      
+                  <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-CastewiseList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>      
+               </div>
+            </div>
+            <div class="row" style="padding: 0 5px 0px 5px;">
+                <div class="small-box" style="width: 100%;background: white;">
+                  <a class="small-box-footer" style="background: #343a40 ;color: #fff !important;font-size: 20px;"> Assembly
+                   <select style="float:right;padding:5px 0px 5px 0;border: 1px solid #ced4da;font-size: 13px;" id="assemblyId" (change)="GetVillageElectionResult($event.target.value)">
+                     <option value="0" selected disabled>- Select Assembly -</option>
+                     <option value="{{bindList.electionId}}" *ngFor="let bindList of getData">{{bindList.electionName}} - {{bindList.electionYear}}</option>
+                   </select>  
+                 </a>
+                  <div class="inner row" style="height: 255px;">
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr > 
+                              <th>Booth</th>
+                              <th>Congress</th>
+                              <th>BJP</th>
+                              <th>Others</th> 
+                              <th>Total</th> 
+                           </tr>
+                           <tr *ngFor="let responce of villageAssemblydataList | slice:0:5" style="font-size: 15px;">
+                              <td>{{responce.boothNo}}</td>
+                              <td>{{responce.congress}}</td>
+                              <td>{{responce.bjp}}</td>
+                              <td>{{responce.other}}</td> 
+                              <td>{{responce.total}}</td> 
+                           </tr>                        
+                        </tbody> 
+                        <tfoot >
+                          <tr>
+                             <th>Total: </th>
+                             <th>{{congressTotal}}</th>
+                             <th>{{bjpTotal}}</th>
+                             <th>{{otherTotal}}</th> 
+                             <th></th> 
+                          </tr> 
+                          <tr>
+                             <th colspan="2">Total Vote: </th>
+                             <th colspan="3">{{congressTotal + bjpTotal + otherTotal}}</th>
+                          </tr>
+                       </tfoot>
+                     </table>
+                  </div>  
+                  <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-assemblyList_village" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>    
+               </div> 
+            </div>
+ <!-- ./col --> 
+
+ <div class="row" style="padding: 0 5px 0px 5px;">
+   <div style="display: block">
+      <canvas baseChart
+              [data]="pieChartData"
+              [labels]="pieChartLabels"                        
+              [chartType]="pieChartType" 
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+    </div>
+
+ </div>
+            </div>
+            <!-- ./col -->  
+         </div> 
+         <!-- /.row -->       
+      </div>
+      <!-- /.container-fluid -->
+   </section>
+   <!-- /.content-wrapper -->
+   <!-- ####################################################################################################################################### -->
+   <!-- Main Block content -->
+   <section class="content">
+      <div class="container-fluid" *ngIf="isBlockShown">
+        
+         <!-- Small boxes (Stat box) -->
+         <div class="row">
+
+             <!-- ./col -->
+             <div class="col-lg-2">
+               <!-- small box -->
+               <h2 style="padding: 5px 5px 5px 5px;background: #f7840b;color: white;font-size: 1.5em;text-align: center;">Block: {{villageName}}</h2>
+              
+               <!-- small box -->
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                  <div class="small-box" style="width: 100%;background: white;">
+                    <!-- <a class="small-box-footer" style="background: #690505;color: #fff !important;"><i class="fas fa-users"></i> Business Wise </a> -->
+                    <div class="inner row" > 
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                       <tbody>                           
+                        <tr>
+                           <th>Name</th>
+                           <th>Total</th> 
+                        </tr>
+                        <tr *ngFor="let d1 of villageInfoArray" style="font-size: 16px;">
+                           <td>{{d1.name}}</td>
+                           <td>{{d1.total}}</td> 
+                        </tr> 
+                       </tbody>
+                    </table>
+                    </div>          
+                 </div>
+              </div>
+           
+            <!-- ./col -->    
+            <div class="row">
+               <div class="col-sm-12">
+                <div class="info-box bg-info" style="min-height: 50px;background-color: #191588 !important;">
+                     <div class="info-box-content" style="text-align: center;">
+                        <span class="info-box-text">जनसंख्या</span>
+                        <span class="info-box-number">{{allPopulation}}</span>  
+                     </div>
+                     <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+               </div>                  
+               <div class="col-sm-12">
+                <div class="info-box bg-info" style="min-height: 50px;background-color: #191588 !important;">
+                   <div class="info-box-content" style="text-align: center;">
+                        <span class="info-box-text">मतदाता</span>
+                        <span class="info-box-number">{{allVoter}}</span>  
+                     </div>
+                     <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+               </div>                   
+             
+            </div>
+         </div>
+            <div class="col-lg-3">
+               <!-- small box --> 
+           
+            <div class="row" style="padding: 0 5px 0px 5px;">
+                <div class="small-box" style="width: 100%;background: white;">
+                  <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Category </a>
+                  <div class="inner row" style="height: 246px;">
+                     <div *ngFor="let d1 of categoryModelArray | slice:0:5" class="col-lg-6">
+                        {{d1.categoryName}} 
+                        <h4>{{d1.total}}</h4>
+                     </div>
+                  </div> 
+               </div>
+            </div>
+            <div class="row" style="padding: 0 5px 0px 5px;">
+                <div class="small-box" style="width: 100%;background: white;">
+                  <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Caste Wise </a>
+                  <div class="inner row" style="height: 215px;">
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr>
+                              <th>Name</th>
+                              <th>Total</th>
+                           </tr>
+                           <tr *ngFor="let d1 of casteModelArray | slice:0:5" style="font-size: 17px;">
+                              <td>{{d1.casteName}}</td>
+                              <td>{{d1.total}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div> 
+                  <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-CastewiseList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>           
+               </div>
+            </div>
+            
+            <div class="row" style="padding: 0 5px 0px 5px;">
+                <div class="small-box" style="width: 100%;background: white;">
+                  <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Age Wise </a>
+                  <div class="inner row" style="height: 215px;">
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr>
+                              <th>Age</th>
+                              <th>Male</th>
+                              <th>Female</th>
+                              <th>Others</th>
+                              <th>Total</th>
+                           </tr>
+                           <tr *ngFor="let d of ageModelArray | slice:0:5" style="font-size: 17px;">
+                              <td>{{d.ageLimit}}</td>
+                              <td>{{d.male}}</td>
+                              <td>{{d.female}}</td>
+                              <td>{{d.other}}</td>
+                              <td><span class="label label-success">{{d.total}}</span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>   
+                  <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-AgewiseList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>          
+               </div>
+            </div>
+
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-4">
+               <!-- small box --> 
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                   <div class="small-box" style="width: 100%;background: white;">
+                     <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;">
+                        <i class="fas fa-users"></i> Leader Of Congress </a>
+                     <div class="inner row" style="height: 215px;"> 
+                      <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr>
+                              <th>Name</th>
+                              <th>Father</th>
+                              <th>Contact No</th>
+                              <th>Caste</th>
+                           </tr>
+                           <tr *ngFor="let d1 of partyLeaderArray | slice:0:5" style="font-size: 16px;">
+                              <td>{{d1.leaderName}}</td>
+                              <td>{{d1.father}}</td>
+                              <td>{{d1.contactNo}}</td>
+                              <td>{{d1.caste}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     </div>
+                     <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-partyLeaderwiseList"  class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>              
+                  </div>
+               </div>              
+
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                  <div class="small-box " style="width: 100%;background: white;">
+                     <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;">
+                        <i class="fas fa-users"></i> Leader Of Opposition </a>
+                     <div class="inner row" style="height: 215px;"> 
+                      <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr>
+                              <th>Name</th>
+                              <th>Father</th>
+                              <th>Contact No</th>
+                              <th>Caste</th>
+                           </tr>
+                           <tr *ngFor="let d1 of oppositionLeaderArray | slice:0:5" style="font-size: 16px;">
+                              <td>{{d1.leaderName}}</td>
+                              <td>{{d1.father}}</td>
+                              <td>{{d1.contactNo}}</td>
+                              <td>{{d1.caste}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     </div>     
+                     <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-oppositLeaderwiseList"  class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>         
+                  </div>
+               </div>  
+
+            </div>     
+                     
+            <!-- ./col -->
+            <div class="col-lg-3">
+            
+             <!-- ./col -->
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                  <div class="small-box" style="width: 100%;background: white;">
+                    <a class="small-box-footer" style="background: #343a40 ;color: #fff !important;font-size: 20px;"> Assembly
+                     <select style="float:right;padding:8px 0px 8px 0;border: 1px solid #ced4da;font-size: 13px;" id="assemblyId" (change)="GetBlockElectionResult($event.target.value)">
+                       <option value="0" selected disabled>- Select Assembly -</option>
+                       <option value="{{bindList.electionId}}" *ngFor="let bindList of getData">{{bindList.electionName}} - {{bindList.electionYear}}</option>
+                     </select>  
+                   </a>
+                    <div class="inner row" style="height: 215px;">
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr > 
+                              <th>Booth</th>
+                              <th>Congress</th>
+                              <th>BJP</th>
+                              <th>Others</th> 
+                              <th>Total</th> 
+                           </tr>
+                           <tr *ngFor="let responce of blockAssemblydataList | slice:0:3" style="font-size: 15px;">
+                              <td>{{responce.boothNo}}</td>
+                              <td>{{responce.congress}}</td>
+                              <td>{{responce.bjp}}</td>
+                              <td>{{responce.other}}</td> 
+                              <td>{{responce.total}}</td> 
+                           </tr>                        
+                        </tbody> 
+                        <tfoot >
+                          <tr>
+                             <th>Total: </th>
+                             <th>{{congressTotal}}</th>
+                             <th>{{bjpTotal}}</th>
+                             <th>{{otherTotal}}</th> 
+                             <th></th> 
+                          </tr> 
+                          <tr>
+                             <th colspan="2">Total Vote: </th>
+                             <th colspan="3">{{congressTotal + bjpTotal + otherTotal}}</th>
+                          </tr>
+                       </tfoot>
+                     </table>
+                    </div>  
+                    <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-assemblyList_block" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>    
+                 </div> 
+              </div>
+  <!-- ./col -->
+  <div class="row">
+   <div class="col-lg-6">
+    <div class="row" style="padding: 0 5px 0px 5px;">
+       <div class="small-box " style="width: 100%;background: white;">
+          <a class="small-box-footer" style="background: red ;color: #fff !important;font-size: 20px;"> Power Village
+           </a>
+          <div class="inner row" style="height: 215px;background: white;">
+           <table class="table borderless" style="margin-bottom: 0px;">
+              <tbody>
+                 <tr > 
+                    <th>Village Name</th> 
+                 </tr>
+                 <tr *ngFor="let responce of powervillageListArray | slice:0:5" style="font-size: 15px;">
+                    <td>{{responce.villageName}}</td> 
+                 </tr>                        
+              </tbody>  
+           </table>
+          </div>  
+          <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-powervillageList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>    
+       </div> 
+    </div>
+   </div> 
+   <div class="col-lg-6">
+    <div class="row" style="padding: 0 5px 0px 5px;">
+        <div class="small-box" style="width: 100%;background: white;">
+          <a class="small-box-footer" style="background: #042c77 ;color: #fff !important;font-size: 20px;"> Weeek Village
+           </a>
+          <div class="inner row" style="height: 215px;">
+           <table class="table borderless" style="margin-bottom: 0px;">
+              <tbody>
+                 <tr > 
+                    <th>Village Name</th> 
+                 </tr>
+                 <tr *ngFor="let responce of weekvillageListArray | slice:0:5" style="font-size: 15px;">
+                    <td>{{responce.villageName}}</td> 
+                 </tr>                        
+              </tbody>  
+           </table>
+          </div>  
+          <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-WeekvillageList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>    
+       </div> 
+    </div>
+   </div> 
+ </div>
+
+ <div class="row" style="padding: 0 5px 0px 5px;">
+   <div style="display: block">
+      <canvas baseChart
+              [data]="pieChartData"
+              [labels]="pieChartLabels"                        
+              [chartType]="pieChartType" 
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+    </div>
+
+ </div>
+            </div>
+            <!-- ./col -->  
+         </div> 
+         <!-- /.row -->      
+      </div>
+      <!-- /.container-fluid -->
+   </section>
+   <!-- /.content-wrapper -->
+
+
+    <!-- ####################################################################################################################################### -->
+   <!-- Main MANDAL content -->
+   <section class="content">
+      <div class="container-fluid" *ngIf="isMandalShown">
+        
+         <!-- Small boxes (Stat box) -->
+         <div class="row">
+
+             <!-- ./col -->
+             <div class="col-lg-2">
+               <!-- small box -->
+               <h2 style="padding: 5px 5px 5px 5px;background: #f7840b;color: white;font-size: 1.5em;text-align: center;">Mandal: {{villageName}}</h2>
+               
+               <!-- small box -->
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                  <div class="small-box" style="width: 100%;background: white;">
+                    <!-- <a class="small-box-footer" style="background: #690505;color: #fff !important;"><i class="fas fa-users"></i> Business Wise </a> -->
+                    <div class="inner row" > 
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>                           
+                         <tr>
+                            <th>Name</th>
+                            <th>Total</th> 
+                         </tr>
+                         <tr *ngFor="let d1 of villageInfoArray" style="font-size: 16px;">
+                            <td>{{d1.name}}</td>
+                            <td>{{d1.total}}</td> 
+                         </tr> 
+                        </tbody>
+                     </table>
+                    </div>          
+                 </div>
+              </div>
+           
+            <!-- ./col -->    
+            <div class="row">
+               <div class="col-sm-12">
+                <div class="info-box bg-info" style="min-height: 50px;background-color: #191588 !important;">
+                     <div class="info-box-content" style="text-align: center;">
+                        <span class="info-box-text">जनसंख्या</span>
+                        <span class="info-box-number">{{allPopulation}}</span>  
+                     </div>
+                     <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+               </div>                  
+               <div class="col-sm-12">
+                <div class="info-box bg-info" style="min-height: 50px;background-color: #191588 !important;">
+                   <div class="info-box-content" style="text-align: center;">
+                        <span class="info-box-text">मतदाता</span>
+                        <span class="info-box-number">{{allVoter}}</span>  
+                     </div>
+                     <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+               </div>                   
+             
+            </div>
+           </div>
+            <div class="col-lg-3">
+               <!-- small box --> 
+             
+            <div class="row" style="padding: 0 5px 0px 5px;">
+                <div class="small-box" style="width: 100%;background: white;">
+                  <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Category </a>
+                  <div class="inner row" style="height: 200px;">
+                     <div *ngFor="let d1 of categoryModelArray | slice:0:5" class="col-lg-6">
+                        {{d1.categoryName}} 
+                        <h4>{{d1.total}}</h4>
+                     </div>
+                  </div> 
+               </div>
+            </div>
+            <div class="row" style="padding: 0 5px 0px 5px;">
+                <div class="small-box" style="width: 100%;background: white;">
+                  <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Caste Wise </a>
+                  <div class="inner row" style="height: 220px;">
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr>
+                              <th>Name</th>
+                              <th>Total</th>
+                           </tr>
+                           <tr *ngFor="let d1 of casteModelArray | slice:0:5" style="font-size: 17px;">
+                              <td>{{d1.casteName}}</td>
+                              <td>{{d1.total}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>        
+                  <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-CastewiseList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>    
+               </div>
+            </div>
+            
+            <div class="row" style="padding: 0 5px 0px 5px;">
+                <div class="small-box" style="width: 100%;background: white;">
+                  <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Age Wise </a>
+                  <div class="inner row" style="height: 220px;">
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr>
+                              <th>Age</th>
+                              <th>Male</th>
+                              <th>Female</th>
+                              <th>Others</th>
+                              <th>Total</th>
+                           </tr>
+                           <tr *ngFor="let d of ageModelArray | slice:0:5" style="font-size: 17px;">
+                              <td>{{d.ageLimit}}</td>
+                              <td>{{d.male}}</td>
+                              <td>{{d.female}}</td>
+                              <td>{{d.other}}</td>
+                              <td><span class="label label-success">{{d.total}}</span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>  
+                  <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-AgewiseList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>           
+               </div>
+            </div>
+
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-4">
+               <!-- small box --> 
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                   <div class="small-box" style="width: 100%;background: white;">
+                     <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;">
+                        <i class="fas fa-users"></i> Leader Of Congress </a>
+                     <div class="inner row" style="height: 170px;"> 
+                      <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr>
+                              <th>Name</th>
+                              <th>Father</th>
+                              <th>Contact No</th>
+                              <th>Caste</th>
+                           </tr>
+                           <tr *ngFor="let d1 of partyLeaderArray | slice:0:5" style="font-size: 16px;">
+                              <td>{{d1.leaderName}}</td>
+                              <td>{{d1.father}}</td>
+                              <td>{{d1.contactNo}}</td>
+                              <td>{{d1.caste}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     </div>   
+                     <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-partyLeaderwiseList"  class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>           
+                  </div>
+               </div>              
+
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                   <div class="small-box" style="width: 100%;background: white;">
+                     <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;">
+                        <i class="fas fa-users"></i> Leader Of Opposition </a>
+                     <div class="inner row" style="height: 220px;"> 
+                      <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr>
+                              <th>Name</th>
+                              <th>Father</th>
+                              <th>Contact No</th>
+                              <th>Caste</th>
+                           </tr>
+                           <tr *ngFor="let d1 of oppositionLeaderArray | slice:0:5" style="font-size: 16px;">
+                              <td>{{d1.leaderName}}</td>
+                              <td>{{d1.father}}</td>
+                              <td>{{d1.contactNo}}</td>
+                              <td>{{d1.caste}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     </div>  
+                     <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-oppositLeaderwiseList"  class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>            
+                  </div>
+               </div>  
+
+            </div>
+            
+            <!-- ./col -->
+            <div class="col-lg-3">
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                  <div class="small-box" style="width: 100%;background: white;">
+                    <a class="small-box-footer" style="background: #343a40 ;color: #fff !important;font-size: 20px;"> Assembly
+                     <select style="float:right;padding:8px 0px 8px 0;border: 1px solid #ced4da;font-size: 13px;" id="assemblyId" (change)="GetMandalElectionResult($event.target.value)">
+                       <option value="0" selected disabled>- Select Assembly -</option>
+                       <option value="{{bindList.electionId}}" *ngFor="let bindList of getData">{{bindList.electionName}} - {{bindList.electionYear}}</option>
+                     </select>  
+                   </a>
+                    <div class="inner row" style="height: 170px;">
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                       <tbody>
+                          <tr > 
+                             <th>Booth</th>
+                             <th>Congress</th>
+                             <th>BJP</th>
+                             <th>Others</th> 
+                             <th>Total</th> 
+                          </tr>
+                          <tr *ngFor="let responce of mandalAssemblydataList | slice:0:2" style="font-size: 15px;">
+                             <td>{{responce.boothNo}}</td>
+                             <td>{{responce.congress}}</td>
+                             <td>{{responce.bjp}}</td>
+                             <td>{{responce.other}}</td> 
+                             <td>{{responce.congress + responce.bjp + responce.other}}</td> 
+                          </tr>                        
+                       </tbody> 
+                       <tfoot >
+                         <tr>
+                            <th>Total: </th>
+                            <th>{{congressTotal}}</th>
+                            <th>{{bjpTotal}}</th>
+                            <th>{{otherTotal}}</th> 
+                            <th></th> 
+                         </tr> 
+                         <tr>
+                            <th colspan="2">Total Vote: </th>
+                            <th colspan="3">{{congressTotal + bjpTotal + otherTotal}}</th>
+                         </tr>
+                      </tfoot>
+                    </table>
+                    </div>  
+                    <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-assemblyList_mandal" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>    
+                 </div>  
+              </div>
+
+               <!-- ./col -->
+               <div class="row">
+                  <div class="col-lg-6">
+                   <div class="row" style="padding: 0 5px 0px 5px;">
+                      <div class="small-box " style="width: 100%;background: white;">
+                         <a class="small-box-footer" style="background: red ;color: #fff !important;font-size: 20px;"> Power Village
+                          </a>
+                         <div class="inner row" style="height: 220px;">
+                          <table class="table borderless" style="margin-bottom: 0px;">
+                             <tbody>
+                                <tr > 
+                                   <th>Village Name</th> 
+                                </tr>
+                                <tr *ngFor="let responce of powervillageListArray | slice:0:5" style="font-size: 15px;">
+                                   <td>{{responce.villageName}}</td> 
+                                </tr>                        
+                             </tbody>  
+                          </table>
+                         </div>  
+                         <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-powervillageList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>    
+                      </div> 
+                   </div>
+                  </div> 
+                  <div class="col-lg-6">
+                   <div class="row" style="padding: 0 5px 0px 5px;">
+                       <div class="small-box" style="width: 100%;background: white;">
+                         <a class="small-box-footer" style="background: #042c77 ;color: #fff !important;font-size: 20px;"> Weeek Village
+                          </a>
+                         <div class="inner row" style="height: 220px;">
+                          <table class="table borderless" style="margin-bottom: 0px;">
+                             <tbody>
+                                <tr > 
+                                   <th>Village Name</th> 
+                                </tr>
+                                <tr *ngFor="let responce of weekvillageListArray | slice:0:5" style="font-size: 15px;">
+                                   <td>{{responce.villageName}}</td> 
+                                </tr>                        
+                             </tbody>  
+                          </table>
+                         </div>  
+                         <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-WeekvillageList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>    
+                      </div> 
+                   </div>
+                  </div> 
+                </div>
+
+                <div class="row" style="padding: 0 5px 0px 5px;">
+                  <div style="display: block">
+                     <canvas baseChart
+                             [data]="pieChartData"
+                             [labels]="pieChartLabels"                        
+                             [chartType]="pieChartType" 
+                             (chartHover)="chartHovered($event)"
+                             (chartClick)="chartClicked($event)"></canvas>
+                   </div>
+
+                </div>
+            <!-- ./col -->  
+         </div> 
+         <!-- /.row -->      
+      </div>
+	</div>
+      <!-- /.container-fluid -->
+   </section>
+   <!-- /.content-wrapper -->
+
+    <!-- ####################################################################################################################################### -->
+   <!-- Main Sector content -->
+   <section class="content">
+      <div class="container-fluid" *ngIf="isSectorShown">
+        
+         <!-- Small boxes (Stat box) -->
+         <div class="row">
+
+             <!-- ./col -->
+             <div class="col-lg-2">
+               <!-- small box -->
+              
+               <!-- small box -->
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                  <div class="small-box" style="width: 100%;background: white;">
+                    <!-- <a class="small-box-footer" style="background: #690505;color: #fff !important;"><i class="fas fa-users"></i> Business Wise </a> -->
+                    <div class="inner row" > 
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>                           
+                         <tr>
+                            <th>Name</th>
+                            <th>Total</th> 
+                         </tr>
+                         <tr *ngFor="let d1 of villageInfoArray" style="font-size: 16px;">
+                            <td>{{d1.name}}</td>
+                            <td>{{d1.total}}</td> 
+                         </tr> 
+                        </tbody>
+                     </table>
+                    </div>          
+                 </div>
+              </div>
+           
+            <!-- ./col -->    
+            <div class="row">
+               <div class="col-sm-12">
+                <div class="info-box bg-info" style="min-height: 50px;background-color: #191588 !important;">
+                     <div class="info-box-content" style="text-align: center;">
+                        <span class="info-box-text">जनसंख्या</span>
+                        <span class="info-box-number">{{allPopulation}}</span>  
+                     </div>
+                     <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+               </div>                  
+               <div class="col-sm-12">
+                <div class="info-box bg-info" style="min-height: 50px;background-color: #191588 !important;">
+                   <div class="info-box-content" style="text-align: center;">
+                        <span class="info-box-text">मतदाता</span>
+                        <span class="info-box-number">{{allVoter}}</span>  
+                     </div>
+                     <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+               </div>                   
+             
+            </div>
+         </div>
+            <div class="col-lg-3">
+               <!-- small box --> 
+            <h2 style="padding: 5px 5px 5px 5px;background: #f7840b;color: white;font-size: 1.5em;text-align: center;">Sector: {{villageName}}</h2>
+              
+            <div class="row" style="padding: 0 5px 0px 5px;">
+                <div class="small-box" style="width: 100%;background: white;">
+                  <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Category </a>
+                  <div class="inner row" style="height: 240px;">
+                     <div *ngFor="let d1 of categoryModelArray | slice:0:5" class="col-lg-6">
+                        {{d1.categoryName}} 
+                        <h4>{{d1.total}}</h4>
+                     </div>
+                  </div> 
+               </div>
+            </div>
+            <div class="row" style="padding: 0 5px 0px 5px;">
+                <div class="small-box" style="width: 100%;background: white;">
+                  <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Caste Wise </a>
+                  <div class="inner row" style="height: 145px;">
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr>
+                              <th>Name</th>
+                              <th>Total</th>
+                           </tr>
+                           <tr *ngFor="let d1 of casteModelArray | slice:0:5" style="font-size: 17px;">
+                              <td>{{d1.casteName}}</td>
+                              <td>{{d1.total}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>    
+                  <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-CastewiseList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>        
+               </div>
+            </div>
+            
+            <div class="row" style="padding: 0 5px 0px 5px;">
+                <div class="small-box" style="width: 100%;background: white;">
+                  <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Age Wise </a>
+                  <div class="inner row" style="height: 240px;">
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr>
+                              <th>Age</th>
+                              <th>Male</th>
+                              <th>Female</th>
+                              <th>Others</th>
+                              <th>Total</th>
+                           </tr>
+                           <tr *ngFor="let d of ageModelArray | slice:0:5" style="font-size: 17px;">
+                              <td>{{d.ageLimit}}</td>
+                              <td>{{d.male}}</td>
+                              <td>{{d.female}}</td>
+                              <td>{{d.other}}</td>
+                              <td><span class="label label-success">{{d.total}}</span></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>  
+                  <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-AgewiseList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>           
+               </div>
+            </div>
+
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-4">
+               <!-- small box --> 
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                   <div class="small-box" style="width: 100%;background: white;">
+                     <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;">
+                        <i class="fas fa-users"></i> Leader Of Congress </a>
+                     <div class="inner row" style="height: 255px;"> 
+                      <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr>
+                              <th>Name</th>
+                              <th>Father</th>
+                              <th>Contact No</th>
+                              <th>Caste</th>
+                           </tr>
+                           <tr *ngFor="let d1 of partyLeaderArray | slice:0:5" style="font-size: 16px;">
+                              <td>{{d1.leaderName}}</td>
+                              <td>{{d1.father}}</td>
+                              <td>{{d1.contactNo}}</td>
+                              <td>{{d1.caste}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     </div>       
+                     <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-partyLeaderwiseList"  class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>       
+                  </div>
+               </div>              
+
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                   <div class="small-box" style="width: 100%;background: white;">
+                     <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;">
+                        <i class="fas fa-users"></i> Leader Of Opposition </a>
+                     <div class="inner row" style="height: 145px;"> 
+                      <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr>
+                              <th>Name</th>
+                              <th>Father</th>
+                              <th>Contact No</th>
+                              <th>Caste</th>
+                           </tr>
+                           <tr *ngFor="let d1 of oppositionLeaderArray | slice:0:5" style="font-size: 16px;">
+                              <td>{{d1.leaderName}}</td>
+                              <td>{{d1.father}}</td>
+                              <td>{{d1.contactNo}}</td>
+                              <td>{{d1.caste}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     </div> 
+                     <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-oppositLeaderwiseList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>             
+                  </div>
+               </div>  
+
+            </div>
+            
+            <!-- ./col -->
+            <div class="col-lg-3">
+               <div class="row" style="padding: 0 5px 0px 5px;">
+                  <div class="small-box" style="width: 100%;background: white;">
+                    <a class="small-box-footer" style="background: #343a40 ;color: #fff !important;font-size: 20px;"> Assembly
+                     <select style="float:right;padding:8px 0px 8px 0;border: 1px solid #ced4da;font-size: 13px;" id="assemblyId" (change)="GetHomeElectionResult($event.target.value)">
+                       <option value="0" selected disabled>- Select Assembly -</option>
+                       <option value="{{bindList.electionId}}" *ngFor="let bindList of getData">{{bindList.electionName}} - {{bindList.electionYear}}</option>
+                     </select>  
+                   </a>
+                    <div class="inner row" style="height: 255px;">
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr > 
+                              <th>Booth</th>
+                              <th>Congress</th>
+                              <th>BJP</th>
+                              <th>Others</th> 
+                              <th>Total</th> 
+                           </tr>
+                           <tr *ngFor="let responce of sectorAssemblydataList | slice:0:5" style="font-size: 15px;">
+                              <td>{{responce.boothNo}}</td>
+                              <td>{{responce.congress}}</td>
+                              <td>{{responce.bjp}}</td>
+                              <td>{{responce.other}}</td> 
+                              <td>{{responce.total}}</td> 
+                           </tr>                        
+                        </tbody> 
+                        <tfoot >
+                          <tr>
+                             <th>Total: </th>
+                             <th>{{congressTotal}}</th>
+                             <th>{{bjpTotal}}</th>
+                             <th>{{otherTotal}}</th> 
+                             <th></th> 
+                          </tr> 
+                          <tr>
+                             <th colspan="2">Total Vote: </th>
+                             <th colspan="3">{{congressTotal + bjpTotal + otherTotal}}</th>
+                          </tr>
+                       </tfoot>
+                     </table>
+                    </div>  
+                    <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-assemblyList_sector" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>   
+                 </div> 
+              </div>
+  <!-- ./col -->
+  <div class="row">
+   <div class="col-lg-6">
+    <div class="row" style="padding: 0 5px 0px 5px;">
+       <div class="small-box " style="width: 100%;background: white;">
+          <a class="small-box-footer" style="background: red ;color: #fff !important;font-size: 20px;"> Power Village
+           </a>
+          <div class="inner row" style="height: 145px;">
+           <table class="table borderless" style="margin-bottom: 0px;">
+              <tbody>
+                 <tr > 
+                    <th>Village Name</th> 
+                 </tr>
+                 <tr *ngFor="let responce of powervillageListArray | slice:0:5" style="font-size: 15px;">
+                    <td>{{responce.villageName}}</td> 
+                 </tr>                        
+              </tbody>  
+           </table>
+          </div>  
+          <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-powervillageList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>    
+       </div> 
+    </div>
+   </div> 
+   <div class="col-lg-6">
+    <div class="row" style="padding: 0 5px 0px 5px;">
+        <div class="small-box" style="width: 100%;background: white;">
+          <a class="small-box-footer" style="background: #042c77 ;color: #fff !important;font-size: 20px;"> Weeek Village
+           </a>
+          <div class="inner row" style="height: 145px;">
+           <table class="table borderless" style="margin-bottom: 0px;">
+              <tbody>
+                 <tr > 
+                    <th>Village Name</th> 
+                 </tr>
+                 <tr *ngFor="let responce of weekvillageListArray | slice:0:5" style="font-size: 15px;">
+                    <td>{{responce.villageName}}</td> 
+                 </tr>                        
+              </tbody>  
+           </table>
+          </div>  
+          <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-WeekvillageList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>    
+       </div> 
+    </div>
+   </div> 
+ </div>
+
+ <div class="row" style="padding: 0 5px 0px 5px;">
+   <div style="display: block">
+      <canvas baseChart
+              [data]="pieChartData"
+              [labels]="pieChartLabels"                        
+              [chartType]="pieChartType" 
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+    </div>
+
+ </div>
+            </div>
+            <!-- ./col -->  
+         </div> 
+         <!-- /.row -->      
+      </div>
+      <!-- /.container-fluid -->
+   </section>
+   <!-- /.content-wrapper -->
+
+    <!-- ####################################################################################################################################### -->
+   <!-- Main Sector content -->
+   <section class="content">
+      <div class="container-fluid" *ngIf="isBoothShown">        
+           <!-- Small boxes (Stat box) -->
+           <div class="row">
+
+            <!-- ./col -->
+            <div class="col-lg-3">
+              <!-- small box -->
+              <h2 style="padding: 5px 5px 5px 5px;background: #f7840b;color: white;font-size: 1.7em;text-align: center;">गांव: {{villageInfoArray.villageName}}</h2>
+              <h2 style="padding: 5px 5px 5px 5px;background: #f7840b;color: white;font-size: 1.7em;text-align: center;">{{boothName}}</h2>
+              <div class="row" style="padding: 0 5px 0px 5px;">
+                  <div class="small-box" style="width: 100%;background: white;">
+                    <!-- <a class="small-box-footer" style="background: #690505;color: #fff !important;"><i class="fas fa-users"></i> Age Wise </a> -->
+                  
+                    <div>
+                       <table class="table borderless" style="margin-bottom: 0px;">
+                          <tbody> 
+                             <tr class="small-box-footer" style="background: #17a2b8;color: #fff !important;font-size: 25px;">
+                                <th>Post</th>
+                                <th>Name</th>
+                                <th>Contact</th> 
+                             </tr>
+                             <tr *ngFor="let d of govtEmployeeArray | slice:0:5" style="font-size: 17px;">
+                                <td>{{d.post}}</td>
+                                <td>{{d.name}}</td>
+                                <td>{{d.contactNo}}</td>
+                             </tr>
+                          </tbody>
+                       </table>
+                    </div>        
+                    <a style="cursor: pointer;" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>     
+                 </div>
+              </div>
+
+              <!-- small box -->
+              <div class="row" style="padding: 0 5px 0px 5px;">
+                 <div class="small-box" style="width: 100%;background: white;">
+                   <!-- <a class="small-box-footer" style="background: #690505;color: #fff !important;"><i class="fas fa-users"></i> Business Wise </a> -->
+                   <div class="inner row" > 
+                    <table class="table borderless" style="margin-bottom: 0px;">
+                      <tbody>              
+                                   
+                         <tr style="font-size: 16px;">
+                            <th>{{villageInfoArray.panchayatName}}</th>
+                            <td>{{villageInfoArray.panchayat}}</td>
+                         </tr>
+                         <tr style="font-size: 16px;">
+                          <th>{{villageInfoArray.janpatPanchayatName}}</th>
+                          <td>{{villageInfoArray.janpatPanchayat}}</td>
+                       </tr>
+                       <tr style="font-size: 16px;">
+                          <th>{{villageInfoArray.districtPanchayatName}}</th>
+                          <td>{{villageInfoArray.districtPanchayat}}</td>
+                       </tr>
+                       <tr style="font-size: 16px;">
+                          <th>{{villageInfoArray.blockName}}</th>
+                          <td>{{villageInfoArray.block}}</td>
+                       </tr>
+                       <tr style="font-size: 16px;">
+                          <th>{{villageInfoArray.mandalName}}</th>
+                          <td>{{villageInfoArray.mandal}}</td>
+                       </tr>
+                       <tr style="font-size: 16px;">
+                          <th>{{villageInfoArray.sectorName}}</th>
+                          <td>{{villageInfoArray.sector}}</td>
+                       </tr>
+                       <tr style="font-size: 16px;">
+                          <th>{{villageInfoArray.boothNoName}}</th>
+                          <td>{{villageInfoArray.boothNo}}</td>
+                       </tr>
+                      </tbody>
+                   </table>
+                   </div>          
+                </div>
+             </div>
+           </div>
+           <!-- ./col --> 
+           <div class="col-lg-2">
+              <!-- small box --> 
+              <div class="row">
+                 <div class="col-sm-12">
+                  <div class="info-box bg-info" style="min-height: 50px;background-color: #191588 !important;">
+                       <div class="info-box-content" style="text-align: center;">
+                          <span class="info-box-text">जनसंख्या</span>
+                          <span class="info-box-number">{{allPopulation}}</span>  
+                       </div>
+                       <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                 </div>                  
+                 <div class="col-sm-12">
+                  <div class="info-box bg-info" style="min-height: 50px;background-color: #191588 !important;">
+                     <div class="info-box-content" style="text-align: center;">
+                          <span class="info-box-text">मतदाता</span>
+                          <span class="info-box-number">{{allVoter}}</span>  
+                       </div>
+                       <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                 </div>                   
+               
+              </div>
+              <div class="row">
+                 <div class="col-sm-12">
+                  <div class="info-box bg-info" style="min-height: 50px;background-color: #191588 !important;">
+                     <div class="info-box-content" style="text-align: center;">
+                          <span class="info-box-text">किसान</span>
+                          <span class="info-box-number">{{allFarmar}}</span>  
+                       </div>
+                       <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                 </div>
+                 <!-- /.col -->
+                 <div class="col-sm-12">
+                  <div class="info-box bg-info" style="min-height: 50px;background-color: #191588 !important;">
+                     <div class="info-box-content" style="text-align: center;">
+                          <span class="info-box-text">BPL - परिवार</span>
+                          <span class="info-box-number">{{allBPLFamily}}</span>  
+                       </div>
+                       <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                 </div>
+                 <!-- /.col -->
+                 <div class="col-sm-12">
+                    <div class="info-box bg-info" style="min-height: 50px;background-color: #191588 !important;">
+                       <div class="info-box-content" style="text-align: center;">
+                            <span class="info-box-text">परिवार</span>
+                            <span class="info-box-number">{{allAPLFamily}}</span>  
+                         </div>
+                         <!-- /.info-box-content -->
+                      </div>
+                      <!-- /.info-box -->
+                   </div>
+              </div>
+           </div>
+           <!-- ./col -->
+           <div class="col-lg-4">
+              <!-- small box --> 
+              <div class="row" style="padding: 0 5px 0px 5px;">
+                  <div class="small-box" style="width: 100%;background: white;">
+                    <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;">
+                       <i class="fas fa-users"></i> Leader Of Congress </a>
+                    <div class="inner row" style="height: 145px;"> 
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                       <tbody>
+                          <tr>
+                             <th>Name</th>
+                             <th>Father</th>
+                             <th>Contact No</th>
+                             <th>Caste</th>
+                          </tr>
+                          <tr *ngFor="let d1 of partyLeaderArray | slice:0:5" style="font-size: 16px;">
+                             <td>{{d1.leaderName}}</td>
+                             <td>{{d1.father}}</td>
+                             <td>{{d1.contactNo}}</td>
+                             <td>{{d1.caste}}</td>
+                          </tr>
+                       </tbody>
+                    </table>
+                    </div> 
+                    <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-partyLeaderwiseList"  class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>             
+                 </div>
+              </div>              
+
+              <div class="row" style="padding: 0 5px 0px 5px;">
+                  <div class="small-box" style="width: 100%;background: white;">
+                    <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;">
+                       <i class="fas fa-users"></i> Leader Of Opposition </a>
+                    <div class="inner row" style="height: 145px;"> 
+                     <table class="table borderless" style="margin-bottom: 0px;">
+                       <tbody>
+                          <tr>
+                             <th>Name</th>
+                             <th>Father</th>
+                             <th>Contact No</th>
+                             <th>Caste</th>
+                          </tr>
+                          <tr *ngFor="let d1 of oppositionLeaderArray | slice:0:5" style="font-size: 16px;">
+                             <td>{{d1.leaderName}}</td>
+                             <td>{{d1.father}}</td>
+                             <td>{{d1.contactNo}}</td>
+                             <td>{{d1.caste}}</td>
+                          </tr>
+                       </tbody>
+                    </table>
+                    </div>    
+                    <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-oppositLeaderwiseList"  class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>          
+                 </div>
+              </div>  
+
+              <div class="row" style="padding: 0 5px 0px 5px;">
+                  <div class="small-box" style="width: 100%;background: white;">
+                    <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Age Wise </a>
+                    <div class="inner row" style="height: 160px;">
+                       <table class="table borderless" style="margin-bottom: 0px;">
+                          <tbody>
+                             <tr>
+                                <th>Age</th>
+                                <th>Male</th>
+                                <th>Female</th>
+                                <th>Others</th>
+                                <th>Total</th>
+                             </tr>
+                             <tr *ngFor="let d of ageModelArray | slice:0:3" style="font-size: 17px;">
+                                <td>{{d.ageLimit}}</td>
+                                <td>{{d.male}}</td>
+                                <td>{{d.female}}</td>
+                                <td>{{d.other}}</td>
+                                <td><span class="label label-success">{{d.total}}</span></td>
+                             </tr>
+                          </tbody>
+                       </table>
+                    </div>  
+                    <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-AgewiseList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>           
+                 </div>
+              </div>
+           </div>           
+           <!-- ./col -->
+           <div class="col-lg-3">
+           
+           <div class="row" style="padding: 0 5px 0px 5px;">
+               <div class="small-box" style="width: 100%;background: white;">
+                 <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Category </a>
+                 <div class="inner row" style="height: 175px;">
+                    <div *ngFor="let d1 of categoryModelArray" class="col-lg-6">
+                       {{d1.categoryName}} 
+                       <h4>{{d1.total}}</h4>
+                    </div>
+                 </div> 
+              </div>
+           </div>
+           <div class="row" style="padding: 0 5px 0px 5px;">
+               <div class="small-box" style="width: 100%;background: white;">
+                 <a class="small-box-footer" style="background: #343a40;color: #fff !important;font-size: 20px;"><i class="fas fa-users"></i> Caste Wise </a>
+                 <div class="inner row" style="height: 145px;">
+                    <table class="table borderless" style="margin-bottom: 0px;">
+                       <tbody>
+                          <tr>
+                             <th>Name</th>
+                             <th>Total</th>
+                          </tr>
+                          <tr *ngFor="let d1 of casteModelArray | slice:0:5" style="font-size: 17px;">
+                             <td>{{d1.casteName}}</td>
+                             <td>{{d1.total}}</td>
+                          </tr>
+                       </tbody>
+                    </table>
+                 </div>      
+                 <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-CastewiseList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>      
+              </div>
+           </div>
+           <div class="row" style="padding: 0 5px 0px 5px;">
+               <div class="small-box" style="width: 100%;background: white;">
+                 <a class="small-box-footer" style="background: #343a40 ;color: #fff !important;font-size: 20px;"> Assembly
+                  <select style="float:right;padding:8px 0px 8px 0;border: 1px solid #ced4da;font-size: 13px;" id="assemblyId" (change)="GetSectorElectionResult($event.target.value)">
+                    <option value="0" selected disabled>- Select Assembly -</option>
+                    <option value="{{bindList.electionId}}" *ngFor="let bindList of getData">{{bindList.electionName}} - {{bindList.electionYear}}</option>
+                  </select>  
+                </a>
+                 <div class="inner row" style="height: 160px;">
+                  <table class="table borderless" style="margin-bottom: 0px;">
+                    <tbody>
+                       <tr > 
+                          <th>Booth</th>
+                          <th>Congress</th>
+                          <th>BJP</th>
+                          <th>Others</th> 
+                          <th>Total</th> 
+                       </tr>
+                       <tr *ngFor="let responce of dataList | slice:0:5" style="font-size: 15px;">
+                          <td>{{responce.boothNo}}</td>
+                          <td>{{responce.congress}}</td>
+                          <td>{{responce.bjp}}</td>
+                          <td>{{responce.other}}</td> 
+                          <td>{{responce.congress + responce.bjp + responce.other}}</td> 
+                       </tr>                        
+                    </tbody> 
+                    <tfoot >
+                      <tr>
+                         <th>Total: </th>
+                         <th>{{congressTotal}}</th>
+                         <th>{{bjpTotal}}</th>
+                         <th>{{otherTotal}}</th> 
+                         <th></th> 
+                      </tr> 
+                      <tr>
+                         <th colspan="2">Total Vote: </th>
+                         <th colspan="3">{{congressTotal + bjpTotal + otherTotal}}</th>
+                      </tr>
+                   </tfoot>
+                 </table>
+                 </div>  
+                 <a style="cursor: pointer;" data-toggle="modal" data-target="#modal-assemblyList" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>      
+              </div> 
+           </div>
+ <!-- ./col -->
+ <div class="row" style="padding: 0 5px 0px 5px;">
+   <div style="display: block">
+      <canvas baseChart
+              [data]="pieChartData"
+              [labels]="pieChartLabels"                        
+              [chartType]="pieChartType" 
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+    </div>
+
+ </div>
+           </div>
+           <!-- ./col -->  
+        </div> 
+        <!-- /.row -->          
+      </div>
+      <!-- /.container-fluid -->
+   </section>
+   <!-- /.content-wrapper -->
+
+    <!-- ####################################################################################################################################### -->
+   <!-- Main Sector content -->
+   <section class="content">
+      <div class="container-fluid" *ngIf="isPagePrabhariShown" >        
+         <!-- Small boxes (Stat box) -->
+         <div class="row" >
+            <div class="col-md-4 col-sm-6 col-12" *ngFor="let d of responceData">
+               <div class="info-box bg-warning" style="background-color: #fbf9f3 !important;border: 1px slolid red;">                 
+                  <div class="info-box-content" style="justify-content: initial;">
+                     <div class="row">
+                        <span class="info-box-text" style="margin-left: 10px;border: 1px solid rgb(15, 15, 15);padding: 5px;">{{d.voterNo}}</span>
+                        <span class="info-box-text" style="padding: 5px;">{{d.voterCardNo}}</span> 
+                     </div> 
+                     <table>
+                        <tr>
+                           <td>
+                              <span class="info-box-text mt-1">Voter Name: </span>
+                           </td>
+                           <td>
+                              <span class="info-box-text mt-1" style="font-weight: bold;">{{d.voterName}}</span>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                              <span class="info-box-text mt-1">Father Name: </span>
+                           </td>
+                           <td>
+                              <span class="info-box-text mt-1" style="font-weight: bold;">{{d.fatherName}}</span>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                              <span class="info-box-text mt-1">Makan No:  </span>
+                           </td>
+                           <td>
+                              <span class="info-box-text mt-1" style="font-weight: bold;">{{d.houseNo}}</span>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                              <span class="info-box-text mt-1">Age: </span>
+                           </td>
+                           <td>
+                              <span class="info-box-text mt-1" style="font-weight: bold;">{{d.age}}</span>
+                           </td>
+                           <td>
+                              <span class="info-box-text mt-1">Gender: </span>
+                           </td>
+                           <td>
+                              <span class="info-box-text mt-1" style="font-weight: bold;">{{d.gender}}</span>
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                   
+                   
+                </div>
+              <!-- /.info-box -->
+            </div> 
+          </div>
+         <!-- /.row -->      
+      </div>
+      <!-- /.container-fluid -->
+   </section>
+   <!-- /.content-wrapper -->
+
+
+    <!-- ####################################################################################################################################### -->
+   <!-- Main Sector content -->
+   <section class="content">
+      <div class="container-fluid" *ngIf="ispoolingAgentShown" >  
+         <div class="row">
+            <div class="col-md-4 mb-2">
+              <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search">
+             </div>
+          </div>      
+         <!-- Small boxes (Stat box) -->
+         <div class="row" >
+            <div class="col-md-4 col-sm-6 col-12" *ngFor="let d of responceData  | filter:searchText">
+               <div class="info-box bg-warning" style="background-color: #fbf9f3 !important;border: 1px slolid red;">                 
+                  <div class="info-box-content" style="justify-content: initial;">
+                     <div class="row">
+                        <span class="info-box-text" style="margin-left: 10px;border: 1px solid rgb(15, 15, 15);padding: 5px;">{{d.voterNo}}</span>
+                        <span class="info-box-text" style="padding: 5px;">{{d.voterCardNo}}</span> 
+                        <span class="info-box-text mt-1" style="font-weight: bold;color: #ff0000;margin-left: 29%;">
+                           <input type="checkbox" value="{{d.voterCardNo}}"  (change)="AddVoterVotevent($event)"> Voted
+                         </span>
+                     </div> 
+                     <table>
+                        <tr>
+                           <td>
+                              <span class="info-box-text mt-1">Voter Name: </span>
+                           </td>
+                           <td>
+                              <span class="info-box-text mt-1" style="font-weight: bold;">{{d.voterName}}</span>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                              <span class="info-box-text mt-1">Father Name: </span>
+                           </td>
+                           <td>
+                              <span class="info-box-text mt-1" style="font-weight: bold;">{{d.fatherName}}</span>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                              <span class="info-box-text mt-1">Makan No:  </span>
+                           </td>
+                           <td>
+                              <span class="info-box-text mt-1" style="font-weight: bold;">{{d.houseNo}}</span>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                              <span class="info-box-text mt-1">Age: </span>
+                           </td>
+                           <td>
+                              <span class="info-box-text mt-1" style="font-weight: bold;">{{d.age}}</span>
+                           </td>
+                           <td>
+                              <span class="info-box-text mt-1">Gender: </span>
+                           </td>
+                           <td>
+                              <span class="info-box-text mt-1" style="font-weight: bold;">{{d.gender}}</span>
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                   
+                   
+                </div>
+              <!-- /.info-box -->
+            </div> 
+          </div>
+         <!-- /.row -->      
+      </div>
+      <!-- /.container-fluid -->
+   </section>
+   <!-- /.content-wrapper -->
+
+   <!-- ####################################################################################################################################### -->
+   <!-- Main Sector content -->
+   <section class="content">
+      <div class="container-fluid" *ngIf="isE_poolingShown" >        
+         <!-- Small boxes (Stat box) -->
+         <div class="row">
+            <div class="col-sm-3">
+               <select class="form-control" id="villageId" (change)="GetePooling_villagedData($event.target.value)">
+                  <option value="0" selected>- Village -</option>
+                  <option value="{{bindList.villageId}}" *ngFor="let bindList of getVillageData">{{bindList.villageName}}</option>
+               </select>
+            </div>
+            <div class="col-sm-3">
+                
+            </div>
+         </div>
+         <div class="row" >
+            <div class="col-md-4 col-sm-6 col-12" *ngFor="let d of responceData">
+               <div>
+                  <div class="info-box bg-warning"> 
+                  
+                     <div class="info-box-content" style="justify-content: initial;">
+                        <div class="row">
+                           <span class="info-box-text" style="margin-left: 10px;border: 1px solid rgb(15, 15, 15);padding: 5px;">{{d.voterNo}}</span>
+                           <span class="info-box-text" style="padding: 5px;">{{d.voterCardNo}}</span> 
+                           <span class="info-box-text" style="padding: 5px;width: 30px;border-radius: 20px" [style.background-color]="d.status == 'true' ? 'green' : 'red'">
+                           
+                           </span> 
+                        </div> 
+                        <table>
+                           <tr>
+                              <td>
+                                 <span class="info-box-text mt-1">Voter Name: </span>
+                              </td>
+                              <td>
+                                 <span class="info-box-text mt-1" style="font-weight: bold;">{{d.voterName}}</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span class="info-box-text mt-1">Father Name: </span>
+                              </td>
+                              <td>
+                                 <span class="info-box-text mt-1" style="font-weight: bold;">{{d.fatherName}}</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span class="info-box-text mt-1">Makan No:  </span>
+                              </td>
+                              <td>
+                                 <span class="info-box-text mt-1" style="font-weight: bold;">{{d.houseNo}}</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span class="info-box-text mt-1">Age: </span>
+                              </td>
+                              <td>
+                                 <span class="info-box-text mt-1" style="font-weight: bold;">{{d.age}}</span>
+                              </td>
+                              <td>
+                                 <span class="info-box-text mt-1">Gender: </span>
+                              </td>
+                              <td>
+                                 <span class="info-box-text mt-1" style="font-weight: bold;">{{d.gender}}</span>
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                  </div>                   
+                </div>
+              <!-- /.info-box -->
+            </div> 
+          </div>
+         <!-- /.row -->      
+      </div>
+      <!-- /.container-fluid -->
+   </section>
+   <!-- /.content-wrapper -->
+</div>
+
+ <!-- Model Popup Stater -->
+
+ <!-- Age Wise Popup -->
+
+<div class="modal fade" id="modal-AgewiseList">
+   <div class="modal-dialog modal-lg " style="width: 500px;">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Age wise Voter List</h5>     
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>      
+         </div>
+         <div class="modal-body">          
+            <div class="row">
+               <table class="table borderless" style="margin-bottom: 0px;">
+                           <tbody>
+                              <tr>
+                                 <th>Age</th>
+                                 <th>Male</th>
+                                 <th>Female</th>
+                                 <th>Others</th>
+                                 <th>Total</th>
+                              </tr>                             
+                              <tr *ngFor="let d of ageModelArray" style="font-size: 17px;">
+                                 <td>{{d.ageLimit}}</td>
+                                 <td>{{d.male}}</td>
+                                 <td>{{d.female}}</td>
+                                 <td>{{d.other}}</td>
+                                 <td><span class="label label-success">{{d.total}}</span></td>
+                              </tr>
+                           </tbody>
+                        </table>
+            </div>
+            <div class="modal-footer">
+            
+            </div>           
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!-- /.modal -->
+ </div>
+
+  <!-- Caste Wise Popup -->
+
+<div class="modal fade" id="modal-CastewiseList">
+   <div class="modal-dialog modal-lg " style="width: 500px;">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Caste Wise List</h5>     
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>      
+         </div>
+         <div class="modal-body">          
+            <div class="row" style="height: 400px;overflow-y: auto;">
+               <table class="table borderless" style="margin-bottom: 0px;">
+                  <tbody>
+                     <tr> 
+                        <th style="color: #9f0f0f;">Name</th>
+                        <th style="color: #9f0f0f;">Total</th>
+                     </tr>
+                     <tr *ngFor="let d1 of casteModelArray" style="font-size: 17px;">
+                        <td style="color: #056905;">{{d1.casteName}}</td>
+                        <td style="color: #056905;">{{d1.total}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="modal-footer">
+            
+            </div>           
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!-- /.modal -->
+ </div>
+
+  <!-- Business Wise Popup -->
+
+<div class="modal fade" id="modal-BusinesswiseList">
+   <div class="modal-dialog modal-lg " style="width: 500px;">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Business wise List</h5>     
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>      
+         </div>
+         <div class="modal-body">          
+            <div class="row" style="height: 400px;overflow-y: auto;">
+                <table class="table borderless" style="margin-bottom: 0px;">
+                       <tbody>
+                          <tr>
+                             <th>Name</th>
+                             <th>Total</th>
+                          </tr>
+                          <tr *ngFor="let d1 of bussinessModelArray" style="font-size: 17px;">
+                             <td>{{d1.occuptionName}}</td>
+                             <td>{{d1.totalvoter}}</td>
+                          </tr>
+                       </tbody>
+                    </table>
+            </div>
+            <div class="modal-footer">
+            
+            </div>           
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!-- /.modal -->
+ </div>
+
+  <!-- PartyLeader Wise Popup -->
+
+  <div class="modal fade" id="modal-partyLeaderwiseList">
+   <div class="modal-dialog modal-lg " style="width: 500px;">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Party Leader List</h5>     
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>      
+         </div>
+         <div class="modal-body">          
+            <div class="row">
+                <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr>
+                              <th>Name</th>
+                              <th>Father</th>
+                              <th>Contact No</th>
+                              <th>Caste</th>
+                           </tr>
+                           <tr *ngFor="let d1 of partyLeaderArray" style="font-size: 16px;">
+                              <td>{{d1.leaderName}}</td>
+                              <td>{{d1.father}}</td>
+                              <td>{{d1.contactNo}}</td>
+                              <td>{{d1.caste}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+            </div>
+            <div class="modal-footer">
+            
+            </div>           
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!-- /.modal -->
+ </div>
+
+
+   <!-- Opposit Leader Wise Popup -->
+
+<div class="modal fade" id="modal-oppositLeaderwiseList">
+   <div class="modal-dialog modal-lg " style="width: 500px;">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Opposite Party Leader List</h5>     
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>      
+         </div>
+         <div class="modal-body">          
+            <div class="row">
+                <table class="table borderless" style="margin-bottom: 0px;">
+                        <tbody>
+                           <tr>
+                              <th>Name</th>
+                              <th>Father</th>
+                              <th>Contact No</th>
+                              <th>Caste</th>
+                           </tr>
+                           <tr *ngFor="let d1 of oppositionLeaderArray" style="font-size: 16px;">
+                              <td>{{d1.leaderName}}</td>
+                              <td>{{d1.father}}</td>
+                              <td>{{d1.contactNo}}</td>
+                              <td>{{d1.caste}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+            </div>
+            <div class="modal-footer">
+            
+            </div>           
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!-- /.modal -->
+ </div>
+
+<!-- Assembly Wise Popup -->
+
+<div class="modal fade" id="modal-assemblyList_Home">
+   <div class="modal-dialog modal-lg " style="width: 500px;">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Assembly Result</h5>     
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>      
+         </div>
+         <div class="modal-body">          
+            <div class="row" style="height: 400px;overflow-y: auto;">
+               <table class="table borderless" style="margin-bottom: 0px;">
+                  <tbody>
+                     <tr > 
+                        <th>Booth</th>
+                        <th>Congress</th>
+                        <th>BJP</th>
+                        <th>Others</th> 
+                        <th>Total</th> 
+                     </tr>
+                     <tr *ngFor="let responce of homeAssemblydataList" style="font-size: 15px;">
+                        <td>{{responce.boothNo}}</td>
+                        <td>{{responce.congress}}</td>
+                        <td>{{responce.bjp}}</td>
+                        <td>{{responce.other}}</td> 
+                        <td>{{responce.total}}</td> 
+                     </tr>                        
+                  </tbody> 
+                  <tfoot >
+                    <tr>
+                       <th>Total: </th>
+                       <th>{{congressTotal}}</th>
+                       <th>{{bjpTotal}}</th>
+                       <th>{{otherTotal}}</th> 
+                       <th></th> 
+                    </tr> 
+                    <tr>
+                       <th colspan="2">Total Vote: </th>
+                       <th colspan="3">{{congressTotal + bjpTotal + otherTotal}}</th>
+                    </tr>
+                 </tfoot>
+               </table>
+            </div>
+            <div class="modal-footer">
+            
+            </div>           
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!-- /.modal -->
+ </div>
+
+ <!-- Assembly Wise Popup -->
+
+<div class="modal fade" id="modal-assemblyList_village">
+   <div class="modal-dialog modal-lg " style="width: 500px;">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Assembly Result</h5>     
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>      
+         </div>
+         <div class="modal-body">          
+            <div class="row" style="height: 400px;overflow-y: auto;">
+               <table class="table borderless" style="margin-bottom: 0px;">
+                  <tbody>
+                     <tr > 
+                        <th>Booth</th>
+                        <th>Congress</th>
+                        <th>BJP</th>
+                        <th>Others</th> 
+                        <th>Total</th> 
+                     </tr>
+                     <tr *ngFor="let responce of villageAssemblydataList" style="font-size: 15px;">
+                        <td>{{responce.boothNo}}</td>
+                        <td>{{responce.congress}}</td>
+                        <td>{{responce.bjp}}</td>
+                        <td>{{responce.other}}</td> 
+                        <td>{{responce.total}}</td> 
+                     </tr>                        
+                  </tbody> 
+                  <tfoot >
+                    <tr>
+                       <th>Total: </th>
+                       <th>{{congressTotal}}</th>
+                       <th>{{bjpTotal}}</th>
+                       <th>{{otherTotal}}</th> 
+                       <th></th> 
+                    </tr> 
+                    <tr>
+                       <th colspan="2">Total Vote: </th>
+                       <th colspan="3">{{congressTotal + bjpTotal + otherTotal}}</th>
+                    </tr>
+                 </tfoot>
+               </table>
+            </div>
+            <div class="modal-footer">
+            
+            </div>           
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!-- /.modal -->
+ </div>
+
+ <!-- Assembly Wise Popup -->
+
+ <div class="modal fade" id="modal-assemblyList_block">
+   <div class="modal-dialog modal-lg " style="width: 500px;">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Assembly Result</h5>     
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>      
+         </div>
+         <div class="modal-body">          
+            <div class="row" style="height: 400px;overflow-y: auto;">
+               <table class="table borderless" style="margin-bottom: 0px;">
+                  <tbody>
+                     <tr > 
+                        <th>Booth</th>
+                        <th>Congress</th>
+                        <th>BJP</th>
+                        <th>Others</th> 
+                        <th>Total</th> 
+                     </tr>
+                     <tr *ngFor="let responce of blockAssemblydataList" style="font-size: 15px;">
+                        <td>{{responce.boothNo}}</td>
+                        <td>{{responce.congress}}</td>
+                        <td>{{responce.bjp}}</td>
+                        <td>{{responce.other}}</td> 
+                        <td>{{responce.total}}</td> 
+                     </tr>                        
+                  </tbody> 
+                  <tfoot >
+                    <tr>
+                       <th>Total: </th>
+                       <th>{{congressTotal}}</th>
+                       <th>{{bjpTotal}}</th>
+                       <th>{{otherTotal}}</th> 
+                       <th></th> 
+                    </tr> 
+                    <tr>
+                       <th colspan="2">Total Vote: </th>
+                       <th colspan="3">{{congressTotal + bjpTotal + otherTotal}}</th>
+                    </tr>
+                 </tfoot>
+               </table>
+            </div>
+            <div class="modal-footer">
+            
+            </div>           
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!-- /.modal -->
+ </div>
+
+  <!-- Assembly Wise Popup -->
+
+  <div class="modal fade" id="modal-assemblyList_mandal">
+   <div class="modal-dialog modal-lg " style="width: 500px;">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Assembly Result</h5>     
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>      
+         </div>
+         <div class="modal-body">          
+            <div class="row" style="height: 400px;overflow-y: auto;">
+               <table class="table borderless" style="margin-bottom: 0px;">
+                  <tbody>
+                     <tr > 
+                        <th>Booth</th>
+                        <th>Congress</th>
+                        <th>BJP</th>
+                        <th>Others</th> 
+                        <th>Total</th> 
+                     </tr>
+                     <tr *ngFor="let responce of mandalAssemblydataList" style="font-size: 15px;">
+                        <td>{{responce.boothNo}}</td>
+                        <td>{{responce.congress}}</td>
+                        <td>{{responce.bjp}}</td>
+                        <td>{{responce.other}}</td> 
+                        <td>{{responce.total}}</td> 
+                     </tr>                        
+                  </tbody> 
+                  <tfoot >
+                    <tr>
+                       <th>Total: </th>
+                       <th>{{congressTotal}}</th>
+                       <th>{{bjpTotal}}</th>
+                       <th>{{otherTotal}}</th> 
+                       <th></th> 
+                    </tr> 
+                    <tr>
+                       <th colspan="2">Total Vote: </th>
+                       <th colspan="3">{{congressTotal + bjpTotal + otherTotal}}</th>
+                    </tr>
+                 </tfoot>
+               </table>
+            </div>
+            <div class="modal-footer">
+            
+            </div>           
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!-- /.modal -->
+ </div>
+
+ <!-- Assembly Wise Popup -->
+
+ <div class="modal fade" id="modal-assemblyList_sector">
+   <div class="modal-dialog modal-lg " style="width: 500px;">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Assembly Result</h5>     
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>      
+         </div>
+         <div class="modal-body">          
+            <div class="row" style="height: 400px;overflow-y: auto;">
+               <table class="table borderless" style="margin-bottom: 0px;">
+                  <tbody>
+                     <tr > 
+                        <th>Booth</th>
+                        <th>Congress</th>
+                        <th>BJP</th>
+                        <th>Others</th> 
+                        <th>Total</th> 
+                     </tr>
+                     <tr *ngFor="let responce of sectorAssemblydataList" style="font-size: 15px;">
+                        <td>{{responce.boothNo}}</td>
+                        <td>{{responce.congress}}</td>
+                        <td>{{responce.bjp}}</td>
+                        <td>{{responce.other}}</td> 
+                        <td>{{responce.total}}</td> 
+                     </tr>                        
+                  </tbody> 
+                  <tfoot >
+                    <tr>
+                       <th>Total: </th>
+                       <th>{{congressTotal}}</th>
+                       <th>{{bjpTotal}}</th>
+                       <th>{{otherTotal}}</th> 
+                       <th></th> 
+                    </tr> 
+                    <tr>
+                       <th colspan="2">Total Vote: </th>
+                       <th colspan="3">{{congressTotal + bjpTotal + otherTotal}}</th>
+                    </tr>
+                 </tfoot>
+               </table>
+            </div>
+            <div class="modal-footer">
+            
+            </div>           
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!-- /.modal -->
+ </div>
+
+<!-- Power Village Popup -->
+
+<div class="modal fade" id="modal-powervillageList">
+   <div class="modal-dialog modal-lg " style="width: 500px;">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Power Village List</h5>     
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>      
+         </div>
+         <div class="modal-body">          
+            <div class="row" style="height: 400px;overflow-y: auto;">
+               <table class="table borderless" style="margin-bottom: 0px;">
+                  <tbody>
+                     <tr > 
+                        <th>Village Name</th> 
+                     </tr>
+                      
+                     <tr *ngFor="let responce of powervillageListArray" style="font-size: 15px;">
+                        <td>{{responce.villageName}}</td> 
+                     </tr>                         
+                  </tbody>                    
+               </table>
+            </div>
+            <div class="modal-footer">
+            
+            </div>           
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!-- /.modal -->
+ </div>
+
+
+     <!-- weeek Village Popup -->
+
+<div class="modal fade" id="modal-WeekvillageList">
+   <div class="modal-dialog modal-lg " style="width: 500px;">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Power Village List</h5>     
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>        
+         </div>
+         <div class="modal-body">          
+            <div class="row" style="height: 400px;overflow-y: auto;">
+               <table class="table borderless" style="margin-bottom: 0px;">
+                  <tbody>
+                     <tr > 
+                        <th>Village Name</th> 
+                     </tr>
+                      
+                     <tr *ngFor="let responce of weekvillageListArray" style="font-size: 15px;">
+                        <td>{{responce.villageName}}</td> 
+                     </tr>                         
+                  </tbody>                    
+               </table>
+            </div>
+            <div class="modal-footer">
+            
+            </div>           
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!-- /.modal -->
+ </div>

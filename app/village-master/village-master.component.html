@@ -1,0 +1,161 @@
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog modal-lg ">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title">Village Entry</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form [formGroup]="submitForm" #model="ngForm" (ngSubmit)="onSubmit(model.value)">
+           <div class="row">  
+              <div class="col-md-6">
+                 <!-- general form elements -->
+                 <div class="form-group">                    
+                    <input type="text" class="form-control" [(ngModel)]="villageModel.villageName" name="villageName"  placeholder="Village Name"  formControlName="villageName" [ngClass]="{ 'is-invalid': submitted && f.villageName.errors }">
+                    <div *ngIf="submitted && f.villageName.errors" class="invalid-feedback">
+                     <div *ngIf="f.villageName.errors.required">Village Name is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">                    
+                    <input type="text" class="form-control" [(ngModel)]="villageModel.panchayatName" name="panchayatName"  placeholder="Panchyat Name"  formControlName="panchayatName" [ngClass]="{ 'is-invalid': submitted && f.panchayatName.errors }">
+                    <div *ngIf="submitted && f.panchayatName.errors" class="invalid-feedback">
+                     <div *ngIf="f.panchayatName.errors.required">Panchayat Name is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">
+                    <select class="form-control" [(ngModel)]="villageModel.janpatPanchayatId" name="janpatPanchayatId"  formControlName="janpatPanchayatId" [ngClass]="{ 'is-invalid': submitted && f.janpatPanchayatId.errors }" required>  
+                    <option value="" disabled selected>- Select Janpad -</option>
+                    <option value="{{bindList.keyId}}" *ngFor="let bindList of getJanpatPData">{{bindList.keyName}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.janpatPanchayatId.errors" class="invalid-feedback">
+                     <div *ngIf="f.janpatPanchayatId.errors.required">Janpat Panchayat Name is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">
+                    <select class="form-control" [(ngModel)]="villageModel.districtPanchayatId" name="districtPanchayatId"  formControlName="districtPanchayatId" [ngClass]="{ 'is-invalid': submitted && f.districtPanchayatId.errors }" required> 
+                    <option value="" disabled selected>- Select District -</option>
+                    <option value="{{bindList.keyId}}" *ngFor="let bindList of getDistrictPData">{{bindList.keyName}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.districtPanchayatId.errors" class="invalid-feedback">
+                     <div *ngIf="f.districtPanchayatId.errors.required">District Panchayat Name is required</div>
+                    </div>
+                 </div>
+              </div>
+              <div class="col-md-6">
+                 <!-- general form elements -->
+                 <div class="form-group">
+                    <select class="form-control" [(ngModel)]="villageModel.blockId" name="blockId"  formControlName="blockId" [ngClass]="{ 'is-invalid': submitted && f.blockId.errors }" required> 
+                    <option value="" disabled selected>- Select Block -</option>
+                    <option value="{{bindList.keyId}}" *ngFor="let bindList of getBlockPData">{{bindList.keyName}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.blockId.errors" class="invalid-feedback">
+                     <div *ngIf="f.blockId.errors.required">Block Name is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">
+                    <select class="form-control" [(ngModel)]="villageModel.mandalId" name="mandalId"  formControlName="mandalId" [ngClass]="{ 'is-invalid': submitted && f.mandalId.errors }" required> 
+                    <option value="" disabled selected>- Select Mandal -</option>
+                    <option value="{{bindList.keyId}}" *ngFor="let bindList of getMandalPData">{{bindList.keyName}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.mandalId.errors" class="invalid-feedback">
+                     <div *ngIf="f.mandalId.errors.required">Mandal Name is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">
+                    <select class="form-control" [(ngModel)]="villageModel.sectorId" name="sectorId"  formControlName="sectorId" [ngClass]="{ 'is-invalid': submitted && f.sectorId.errors }" required> 
+                    <option value="" disabled selected>- Select Sector -</option>
+                    <option value="{{bindList.keyId}}" *ngFor="let bindList of getSectorPData">{{bindList.keyName}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.sectorId.errors" class="invalid-feedback">
+                     <div *ngIf="f.sectorId.errors.required">Sector Name is required</div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+           <div class="modal-footer">
+              <div class="msgagr"></div>
+              <button class="btn btn-default" data-dismiss="modal">Close</button>
+              <button class="btn btn-primary">{{submitText}}</button>
+           </div>
+           </form>
+        </div>
+     </div>
+     <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+     <div class="container-fluid">
+        <div class="row mb-2">
+           <div class="col-sm-6">
+              <h1 class="m-0 text-dark">Village Master</h1>
+           </div>
+           <!-- /.col -->
+           <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                 <button type="button" class="btn btn-info" (click)="CreateNew()">
+                 <i class="fa fa-plus" aria-hidden="true"></i> New Village
+                 </button>
+              </ol>
+           </div>
+           <!-- /.col -->
+        </div>
+        <!-- /.row -->
+     </div>
+     <!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+  <section class="content">
+     <div class="container-fluid">
+        <div class="card">
+           <!-- /.card-header -->
+           <div class="card-body">
+              <table  class="table table-bordered table-striped">
+                 <thead>
+                    <tr>
+                       <th>#</th>
+                       <th>Village Name</th>
+                       <th>Panchyat</th>
+                       <th>Janpad</th>
+                       <th>District</th>
+                       <th>Block</th>
+                       <th>Mandal</th>
+                       <th>Sector</th>
+                       <td>Action</td>
+                    </tr>
+                 </thead>
+                 <tbody>
+                    <tr *ngFor="let responce of responceData | paginate: {id:'dataTable',itemsPerPage:25, currentPage:pageNo, totalItems:totalRecords }">
+                       <td>{{responce.srNo}}</td>
+                       <td>{{responce.villageName}}</td>
+                       <td>{{responce.panchayatName}}</td>
+                       <td>{{responce.janpatPanchayatName}}</td>
+                       <td>{{responce.districtPanchayatName}}</td>
+                       <td>{{responce.blockName}}</td>
+                       <td>{{responce.mandalName}}</td>
+                       <td>{{responce.sectorName}}</td>
+                       <td>
+                          <div class="actionbtn">
+                             <span class="pointer" (click)="SelectedData(responce)"><i class="fa fa-edit"></i></span>  
+                             <span class="pointer" (click)="DeleteData(responce)"><i class="fa fa-trash"></i></span> 
+                          </div>
+                       </td>
+                    </tr>
+                 </tbody>
+              </table>
+              <div style="padding: 5px 0; ">
+                 <p style="float: left">Showing {{totalRecords}} entries</p>
+                 <pagination-controls id="dataTable" maxSize="25" directionLinks="true" (pageChange)="pageNo=$event" style="float: right;"></pagination-controls>
+              </div>
+           </div>
+           <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+     </div>
+  </section>
+</div>

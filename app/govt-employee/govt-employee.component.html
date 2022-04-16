@@ -1,0 +1,177 @@
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog modal-lg ">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title">New Employee</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form [formGroup]="submitForm" #model="ngForm" (ngSubmit)="onSubmit(model.value)">
+           <div class="row">
+              <div class="col-md-6">
+                 <!-- general form elements -->
+                 <div class="form-group">                    
+                    <input type="text" class="form-control" [(ngModel)]="EmployeeModel.employeeName" name="employeeName"  placeholder="Name" formControlName="employeeName" [ngClass]="{ 'is-invalid': submitted && f.employeeName.errors }">
+                    <div *ngIf="submitted && f.employeeName.errors" class="invalid-feedback">
+                     <div *ngIf="f.employeeName.errors.required">Employee Name is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">                    
+                    <input type="text" class="form-control" [(ngModel)]="EmployeeModel.father" name="father"  placeholder="Father Name" formControlName="father" [ngClass]="{ 'is-invalid': submitted && f.father.errors }">
+                    <div *ngIf="submitted && f.father.errors" class="invalid-feedback">
+                     <div *ngIf="f.father.errors.required">Father is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">
+                    <select class="form-control" [(ngModel)]="EmployeeModel.designationId" name="designationId"  formControlName="designationId" [ngClass]="{ 'is-invalid': submitted && f.designationId.errors }"> 
+                    <option value="" disabled selected>- Select Designation -</option>
+                    <option value="{{bindList.designationId}}" *ngFor="let bindList of getDesiList">{{bindList.designationName}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.designationId.errors" class="invalid-feedback">
+                      <div *ngIf="f.designationId.errors.required">Designation Name is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">
+                    <select class="form-control" [(ngModel)]="EmployeeModel.departmentId" name="departmentId"  formControlName="departmentId" [ngClass]="{ 'is-invalid': submitted && f.departmentId.errors }"> 
+                    <option value="" disabled selected>- Select Department -</option>
+                    <option value="{{bindList.departmentId}}" *ngFor="let bindList of getDepList">{{bindList.departmentName}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.departmentId.errors" class="invalid-feedback">
+                      <div *ngIf="f.departmentId.errors.required">Department Name is required</div>
+                     </div>
+                 </div>
+              </div>
+              <div class="col-md-6">
+                 <!-- general form elements -->          
+                 <div class="form-group">
+                    <select class="form-control" [(ngModel)]="EmployeeModel.villageId" name="villageId"  formControlName="villageId" [ngClass]="{ 'is-invalid': submitted && f.villageId.errors }">
+                    <option value="" disabled selected>- Select Village -</option>
+                    <option value="{{bindList.villageId}}" *ngFor="let bindList of getVillageList">{{bindList.villageName}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.villageId.errors" class="invalid-feedback">
+                      <div *ngIf="f.villageId.errors.required">Village is required</div>
+                     </div>
+                 </div>
+                 <div class="form-group">                
+                    <input type="text" [(ngModel)]="EmployeeModel.contactNo" class="form-control" name="contactNo" placeholder="Mobile No" formControlName="contactNo" [ngClass]="{ 'is-invalid': submitted && f.contactNo.errors }">
+                    <div *ngIf="submitted && f.contactNo.errors" class="invalid-feedback">
+                     <div *ngIf="f.contactNo.errors.required">ContactNo is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">                
+                    <input type="text" [(ngModel)]="EmployeeModel.address" class="form-control" name="address" placeholder="Address" formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors }">
+                    <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                     <div *ngIf="f.address.errors.required">Address is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group row">
+                    <label for="inputLabel3" class="col-sm-4 col-form-label">Curent Status: </label>
+                    <div class="col-sm-8">
+                       <div class="form-check">
+                          <label class="form-check-label">
+                          <input class="form-check-input" [(ngModel)]="EmployeeModel.status" name="status" value="Active" type="radio" formControlName="status"  checked="">
+                          Active</label>
+                       </div>
+                       <div class="form-check">
+                          <label class="form-check-label">
+                          <input class="form-check-input" [(ngModel)]="EmployeeModel.status" name="status" value="DeActive" formControlName="status"  type="radio">
+                          DeActive</label>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+           <div class="modal-footer">
+              <div class="msgagr"></div>
+              <button class="btn btn-default" data-dismiss="modal">Close</button>
+              <button class="btn btn-primary">{{submitText}}</button>
+           </div>
+           </form>
+        </div>
+     </div>
+     <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+     <div class="container-fluid">
+        <div class="row mb-2">
+           <div class="col-sm-6">
+              <h1 class="m-0 text-dark">Govt. Employees</h1>
+           </div>
+           <!-- /.col -->
+           <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                 <button type="button" class="btn btn-info" (click)="CreateNew()">
+                 <i class="fa fa-plus" aria-hidden="true"></i> New Employee
+                 </button>
+              </ol>
+           </div>
+           <!-- /.col -->
+        </div>
+        <!-- /.row -->
+     </div>
+     <!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+  <section class="content">
+     <div class="container-fluid">
+        <div class="card">
+           <!-- /.card-header -->
+           <div class="card-body">
+            <div class="row">
+               <div class="col-md-4 mb-2">
+                 <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder=" Start Searching... ">
+                </div>
+             </div>
+              <table class="table table-bordered table-striped">
+                 <thead>
+                    <tr>
+                       <th>#</th>
+                       <th>Name</th>
+                       <th>Father</th>
+                       <th>Department</th>
+                       <th>Designation</th>
+                       <th>Village</th>
+                       <th>ContactNo</th>
+                       <th>Address</th>
+                       <th>Status</th>
+                       <td>Action</td>
+                    </tr>
+                 </thead>
+                 <tbody>
+                    <tr *ngFor="let responce of responceData | paginate: {id:'dataTable',itemsPerPage:10, currentPage:pageNo, totalItems:totalRecords }| filter:searchText">
+                       <td>{{responce.srNo}}</td>
+                       <td>{{responce.employeeName}}</td>
+                       <td>{{responce.father}}</td>
+                       <td>{{responce.departmentName}}</td>
+                       <td>{{responce.designationName}}</td>
+                       <td>{{responce.villageName}}</td>
+                       <td>{{responce.contactNo}}</td>
+                       <td>{{responce.address}}</td>
+                       <td>{{responce.status}}</td>
+                       <td>
+                          <div class="actionbtn">
+                             <span class="pointer" (click)="SelectedData(responce)"><i class="fa fa-edit"></i></span>  
+                             <span class="pointer" (click)="DeleteData(responce)"><i class="fa fa-trash"></i></span> 
+                          </div>
+                       </td>
+                    </tr>
+                 </tbody>
+              </table>
+              <div style="padding: 5px 0; ">
+                 <p style="float: left">Showing {{totalRecords}} entries</p>
+                 <pagination-controls id="dataTable" maxSize="10" directionLinks="true" (pageChange)="pageNo=$event" style="float: right;"></pagination-controls>
+              </div>
+           </div>
+           <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+     </div>
+  </section>
+</div>

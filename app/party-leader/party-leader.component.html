@@ -1,0 +1,177 @@
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog modal-lg ">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title">Party Leader</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form [formGroup]="submitForm" #model="ngForm" (ngSubmit)="onSubmit(model.value)">
+           <div class="row">
+              <div class="col-md-6">
+                 <!-- general form elements -->
+                 <div class="form-group">                    
+                    <input type="text" class="form-control" [(ngModel)]="LeaderModel.leaderName" name="leaderName" placeholder="Name"  formControlName="leaderName" [ngClass]="{ 'is-invalid': submitted && f.leaderName.errors }">
+                    <div *ngIf="submitted && f.leaderName.errors" class="invalid-feedback">
+                     <div *ngIf="f.leaderName.errors.required">Leader Name is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">                    
+                    <input type="text" class="form-control" [(ngModel)]="LeaderModel.father" name="father" placeholder="Father Name"  formControlName="father" [ngClass]="{ 'is-invalid': submitted && f.father.errors }">
+                    <div *ngIf="submitted && f.father.errors" class="invalid-feedback">
+                     <div *ngIf="f.father.errors.required">Father Name is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">
+                  <select class="form-control" [(ngModel)]="LeaderModel.gender" name="gender" formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
+                  <option value="" disabled selected>- Select Gender -</option>
+                  <option value="Male">Male</option> 
+                  <option value="Female">Female</option> 
+                  <option value="Other">Other</option> 
+                  </select>
+                  <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+                     <div *ngIf="f.gender.errors.required">Gender is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">                
+                    <input type="text" class="form-control" [(ngModel)]="LeaderModel.dob" name="dob" placeholder="Dob"  formControlName="dob" [ngClass]="{ 'is-invalid': submitted && f.dob.errors }">
+                    <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+                     <div *ngIf="f.dob.errors.required">Date of Birth is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">                
+                    <input type="text" class="form-control" [(ngModel)]="LeaderModel.caste" name="caste" placeholder="Caste"  formControlName="caste" [ngClass]="{ 'is-invalid': submitted && f.caste.errors }">
+                    <div *ngIf="submitted && f.caste.errors" class="invalid-feedback">
+                     <div *ngIf="f.caste.errors.required">Caste is required</div>
+                    </div>
+                 </div>
+              </div>
+              <div class="col-md-6">
+                 <!-- general form elements -->      
+                 <div class="form-group">
+                  <select class="form-control" [(ngModel)]="LeaderModel.category" name="category" formControlName="category" [ngClass]="{ 'is-invalid': submitted && f.category.errors }"> 
+                  <option value="" disabled selected>- Select Category -</option>
+                  <option value="{{bindList.categoryId}}" *ngFor="let bindList of getCategoryData">{{bindList.categoryName}}</option>
+                  </select>
+                  <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
+                     <div *ngIf="f.category.errors.required">Category is required</div>
+                    </div>
+               </div>     
+                 <div class="form-group">
+                    <select class="form-control" [(ngModel)]="LeaderModel.religion" name="religion" formControlName="religion" [ngClass]="{ 'is-invalid': submitted && f.religion.errors }"> 
+                    <option value="" disabled selected>- Select Religion -</option>
+                    <option value="{{bindList.religionId}}" *ngFor="let bindList of getReligionData">{{bindList.religionName}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.religion.errors" class="invalid-feedback">
+                     <div *ngIf="f.religion.errors.required">Religion is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">                
+                    <input type="text" class="form-control" [(ngModel)]="LeaderModel.contactNo" name="contactNo" placeholder="Mobile"  formControlName="contactNo" [ngClass]="{ 'is-invalid': submitted && f.contactNo.errors }">
+                    <div *ngIf="submitted && f.contactNo.errors" class="invalid-feedback">
+                     <div *ngIf="f.contactNo.errors.required">Contact No is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">                
+                    <input type="text" class="form-control" [(ngModel)]="LeaderModel.address" name="address" placeholder="Address"  formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors }">
+                    <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                     <div *ngIf="f.address.errors.required">Address is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">
+                  <input type='file' name="Photo" (change)="onSelectFile($event)">
+                  <img [src]="photo"  height="100" >
+                </div>
+              </div>
+           </div>
+           <div class="modal-footer">
+              <div class="msgagr"></div>
+              <button class="btn btn-default" data-dismiss="modal">Close</button>
+              <button class="btn btn-primary">{{submitText}}</button>
+           </div>
+           </form> 
+        </div>
+     </div>
+     <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+     <div class="container-fluid">
+        <div class="row mb-2">
+           <div class="col-sm-6">
+              <h1 class="m-0 text-dark">Party Leader</h1>
+           </div>
+           <!-- /.col -->
+           <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                 <button type="button" class="btn btn-info" (click)="CreateNew()">
+                 <i class="fa fa-plus" aria-hidden="true"></i> New Leader
+                 </button>
+              </ol>
+           </div>
+           <!-- /.col -->
+        </div>
+        <!-- /.row -->
+     </div>
+     <!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+  <section class="content">
+     <div class="container-fluid">
+        <div class="card">
+           <!-- /.card-header -->
+           <div class="card-body">
+            <div class="row">
+               <div class="col-md-4 mb-2">
+                 <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder=" Start Searching... ">
+                </div>
+             </div>
+              <table class="table table-bordered table-striped">
+                 <thead>
+                    <tr>
+                       <th>#</th>
+                       <th>Name</th>
+                       <th>Father</th>
+                       <th>Category</th>
+                       <th>Caste</th>
+                       <th>ContactNo</th>
+                       <th>Address</th>
+                       <td>Action</td>
+                    </tr>
+                 </thead>
+                 <tbody>
+                  <tr *ngFor="let responce of responceData | paginate: {id:'dataTable',itemsPerPage:10, currentPage:pageNo, totalItems:totalRecords } | filter:searchText">
+                       <td>{{responce.srNo}}</td>
+                       <td>{{responce.leaderName}}</td>
+                       <td>{{responce.father}}</td>
+                       <td>{{responce.category}}</td>
+                       <td>{{responce.caste}}</td>
+                       <td>{{responce.contactNo}}</td>
+                       <td>{{responce.address}}</td>
+                       <td>
+                          <div class="actionbtn">
+                             <span class="pointer" (click)="SelectedData(responce)"><i class="fa fa-edit"></i></span>  
+                             <span class="pointer" (click)="DeleteData(responce)"><i class="fa fa-trash"></i></span> 
+                          </div>
+                       </td>
+                    </tr>
+                    
+                 </tbody>
+              </table>
+              <div style="padding: 5px 0; ">
+               <p style="float: left">Showing {{totalRecords}} entries</p>
+                <pagination-controls id="dataTable" maxSize="10" directionLinks="true" (pageChange)="pageNo=$event" style="float: right;"></pagination-controls>
+             </div>
+           </div>
+           <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+     </div>
+  </section>
+</div>

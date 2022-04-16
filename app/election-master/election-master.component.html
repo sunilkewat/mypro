@@ -1,0 +1,105 @@
+<div class="modal fade" id="modal-default">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Election Master</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+           <form [formGroup]="submitForm" #model="ngForm" (ngSubmit)="onSubmit(model.value)">
+            <div class="row">
+               <div class="col-md-12">
+                  <!-- general form elements -->
+                  <div class="form-group">
+                     <input type="text" class="form-control" [(ngModel)]="electionModel.electionName" name="electionName" placeholder="Election Name" formControlName="electionName" [ngClass]="{ 'is-invalid': submitted && f.electionName.errors }">
+                     <div *ngIf="submitted && f.electionName.errors" class="invalid-feedback">
+                        <div *ngIf="f.electionName.errors.required">Election Name is required</div>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <input type="text" class="form-control" [(ngModel)]="electionModel.electionYear" name="electionYear" placeholder="Election Year" formControlName="electionYear" [ngClass]="{ 'is-invalid': submitted && f.electionYear.errors }">
+                     <div *ngIf="submitted && f.electionYear.errors" class="invalid-feedback">
+                        <div *ngIf="f.electionYear.errors.required">Election Year is required</div>
+                       </div>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer">
+               <div class="msgagr"></div>
+               <button class="btn btn-default" data-dismiss="modal">Close</button>
+               <button class="btn btn-primary">{{submitText}}</button>
+            </div>
+            </form>
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+   </div>
+   <!-- /.modal -->
+</div>
+<div class="content-wrapper">
+   <!-- Content Header (Page header) -->
+   <div class="content-header">
+      <div class="container-fluid">
+         <div class="row mb-2">
+            <div class="col-sm-6">
+               <h1 class="m-0 text-dark">Election Master</h1>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+               <ol class="breadcrumb float-sm-right">
+                  <button type="button" class="btn btn-info" (click)="CreateNew()">
+                  <i class="fa fa-plus" aria-hidden="true"></i> Election Master
+                  </button>
+               </ol>
+            </div>
+            <!-- /.col -->
+         </div>
+         <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+   </div>
+   <!-- /.content-header -->
+   <section class="content">
+      <div class="container-fluid">
+         <div class="card">
+            <!-- /.card-header -->
+            <div class="card-body">
+               <table  class="table table-bordered table-striped">
+                  <thead>
+                     <tr>
+                        <th>#</th>
+                        <th>Election Name</th>
+                        <th>Election Name</th>
+                        <td>Action</td>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr *ngFor="let responce of responceData | paginate: {id:'dataTable',itemsPerPage:10, currentPage:pageNo, totalItems:totalRecords }">
+                        <td>{{responce.srNo}}</td>
+                        <td>{{responce.electionName}}</td>
+                        <td>{{responce.electionYear}}</td>
+                        <td>
+                           <div class="actionbtn">
+                              <span class="pointer" (click)="SelectedData(responce)"><i class="fa fa-edit"></i></span>  
+                              <span class="pointer" (click)="DeleteData(responce)"><i class="fa fa-trash"></i></span> 
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+               <div style="padding: 5px 0; ">
+                  <p style="float: left">Showing {{totalRecords}} entries</p>
+                  <pagination-controls id="dataTable" maxSize="10" directionLinks="true" (pageChange)="pageNo=$event" style="float: right;"></pagination-controls>
+               </div>
+               <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" type="ball-spin-clockwise">
+               </ngx-spinner>
+            </div>
+            <!-- /.card-body -->
+         </div>
+         <!-- /.card -->
+      </div>
+   </section>
+</div>

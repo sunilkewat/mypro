@@ -1,0 +1,379 @@
+
+
+<div class="modal fade" id="modal-excel_default">
+   <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#ffffff" type="ball-spin-clockwise">
+   </ngx-spinner>
+    <div class="modal-dialog modal-xl ">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title">Upload Data</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">      
+             
+             <div class="row">
+                <div class="col-md-12 row">                  
+                   <div class="col-md-9 row">
+                      <form style="display: flex;" [formGroup]="UploadForm" #model="ngForm" (ngSubmit)="onUpload(UploadForm.value)">
+                      <div class="col-md-4"> 
+                         <div class="form-group">            
+                         <select class="form-control" id="villageuploadId" name="villageuploadId" formControlName="villageuploadId" [ngClass]="{ 'is-invalid': submitted && f.villageuploadId.errors }">
+                            <option value="" disabled selected>- Select Village -</option>
+                            <option value="{{bindList.villageId}}" *ngFor="let bindList of getVillageData">{{bindList.villageName}}</option>
+                         </select>
+                         <div *ngIf="submitted && f.villageuploadId.errors" class="invalid-feedback">
+                            <div *ngIf="f.villageuploadId.errors.required">Village is required</div>
+                           </div>
+                      </div> 
+                      </div>      
+                      <div class="col-md-4">
+                         <div class="form-group">            
+                            <input type="file" (change)="onChange($event)" #inputFile>     
+                         </div>   
+                      </div>      
+                      <div class="col-md-2">
+                         <div class="form-group">            
+                            <button type="button"  class="btn btn-default" (click)="ImportViewExcel()" style="padding: 0.125rem .75rem;">
+                               <i class="fa fa-upload" aria-hidden="true"></i> Upload
+                               </button>
+                         </div>   
+                      </div> 
+                      <div class="col-md-2">
+                         <button class="btn btn-primary" style="padding: 0.125rem .75rem;">
+                            <i class="fas fa-file-import" aria-hidden="true"></i> {{importText}}</button>
+                      </div> 
+                     </form>
+                   </div> 
+                   <div class="col-md-3 row">                     
+                      <div class="col-md-12">
+                         <button class="btn btn-primary" style="padding: 0.125rem .75rem;" (click)="exportexcelsheet()" >
+                            <i class="fa fa-download" aria-hidden="true"></i> Download Excel</button>
+                      </div> 
+                   </div>
+                   <!-- general form elements -->  
+                  
+                </div>
+ 
+                <div style="overflow: auto;height: 400px;">
+                <table id="excel-table" class="table table-bordered table-striped">
+                   <thead>
+                      <tr>
+                         <th>#</th>
+                         <th>SSSMFamilyid</th>
+                         <th>SSSMMemberid</th>
+                         <th>VoterName</th> 
+                         <th>Father</th>
+                         <th>DOB</th>       
+                         <th>Age</th>                         
+                         <th>Address</th>
+                         <th>FamilyHead</th>
+                         <th>Gender</th>
+                         <th>Category</th> 
+                         <th>MarritalStatus</th>  
+                      </tr>
+                   </thead>
+                   <tbody>
+                      <tr *ngFor="let responce of modelArray">
+                         <td>{{responce.Id}}</td>
+                         <td>{{responce.sssmfamilyId}}</td>
+                         <td>{{responce.sssmmemberId}}</td>                         
+                         <td>{{responce.Name}}</td>
+                         <td>{{responce.father}}</td>
+                         <td>{{responce.dob}}</td>
+                         <td>{{responce.age}}</td>
+                         <td>{{responce.address}}</td>
+                         <td>{{responce.familyHeadName}}</td>                     
+                         <td>{{responce.gender}}</td>
+                         <td>{{responce.category}}</td> 
+                         <td>{{responce.marritalStatus}}</td>   
+                      </tr>
+                   </tbody>
+                </table>
+                </div>
+ 
+             </div>
+             <div class="modal-footer">
+               
+             </div> 
+          </div>
+       </div>
+       <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+ </div>
+ 
+ 
+ <div class="modal fade" id="modal-default">
+    <div class="modal-dialog modal-xl ">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title">Registration</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">      
+             <form [formGroup]="submitForm" #model="ngForm" (ngSubmit)="onSubmit(submitForm.value)">
+             <div class="row">
+                <div class="col-md-4">
+                   <!-- general form elements -->                  
+                   <div class="form-group">                    
+                      <input type="text" class="form-control" [(ngModel)]="populationModel.Name" name="Name" placeholder="Name" formControlName="Name" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">
+                      <div *ngIf="submitted && f.voterName.errors" class="invalid-feedback">
+                       <div *ngIf="f.voterName.errors.required">Voter Name is required</div>
+                      </div>
+                   </div>
+                   <div class="form-group">                    
+                      <input type="text" class="form-control" [(ngModel)]="populationModel.surname" name="surname" placeholder="Surname" formControlName="surname" [ngClass]="{ 'is-invalid': submitted && f.surname.errors }">
+                      <div *ngIf="submitted && f.surname.errors" class="invalid-feedback">
+                       <div *ngIf="f.surname.errors.required">SurName is required</div>
+                      </div>
+                   </div>
+                   <div class="form-group">                    
+                      <input type="text" class="form-control" [(ngModel)]="populationModel.father" name="father" placeholder="Father Name" formControlName="father" [ngClass]="{ 'is-invalid': submitted && f.father.errors }">
+                      <div *ngIf="submitted && f.father.errors" class="invalid-feedback">
+                       <div *ngIf="f.father.errors.required">father Name is required</div>
+                      </div>
+                   </div>
+                   <div class="form-group">
+                      <select class="form-control" [(ngModel)]="populationModel.gender" name="gender" formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
+                      <option value="" disabled selected>- Select Gender -</option>
+                      <option value="Male">Male</option> 
+                      <option value="Female">Female</option> 
+                      <option value="Other">Other</option> 
+                      </select>
+                      <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+                         <div *ngIf="f.gender.errors.required">Gender is required</div>
+                        </div>
+                   </div>
+                  
+                   <div class="form-group">
+                      <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                         <input type="text" class="form-control datetimepicker-input" [(ngModel)]="populationModel.dob" name="dob" placeholder="Date Of Birth" data-target="#reservationdate" formControlName="dob" [ngClass]="{ 'is-invalid': submitted && f.dob.errors }">
+                         <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                         </div>
+                         <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+                            <div *ngIf="f.dob.errors.required">Date Of Birth is required</div>
+                           </div>
+                      </div>
+                   </div>
+                   <div class="form-group">                    
+                      <input type="text" class="form-control" [(ngModel)]="populationModel.caste" name="caste" placeholder="Caste" formControlName="caste" [ngClass]="{ 'is-invalid': submitted && f.caste.errors }">
+                      <div *ngIf="submitted && f.caste.errors" class="invalid-feedback">
+                       <div *ngIf="f.caste.errors.required">Caste is required</div>
+                      </div>
+                   </div>
+                   <div class="form-group">
+                      <select class="form-control" [(ngModel)]="populationModel.category" name="category" formControlName="category" [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
+                      <option value="" disabled selected>- Select Category -</option>
+                      <option value="{{bindList.categoryId}}" *ngFor="let bindList of getCategoryData">{{bindList.categoryName}}</option>
+                      </select>
+                      <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
+                         <div *ngIf="f.category.errors.required">Category is required</div>
+                        </div>
+                   </div>
+                </div>
+                <div class="col-md-4">
+                   <div class="form-group">
+                      <select class="form-control" [(ngModel)]="populationModel.religion" name="religion" formControlName="religion" [ngClass]="{ 'is-invalid': submitted && f.religion.errors }">
+                      <option value="" disabled selected>- Select Religion -</option>
+                      <option value="{{bindList.religionId}}" *ngFor="let bindList of getReligionData">{{bindList.religionName}}</option>
+                      </select>
+                      <div *ngIf="submitted && f.religion.errors" class="invalid-feedback">
+                         <div *ngIf="f.religion.errors.required">Religion is required</div>
+                        </div>
+                   </div>
+                   <div class="form-group">                
+                      <input type="text" class="form-control" [(ngModel)]="populationModel.familyHeadName" name="familyHeadName" placeholder="Family Head Name" formControlName="familyHeadName" [ngClass]="{ 'is-invalid': submitted && f.familyHeadName.errors }">
+                      <div *ngIf="submitted && f.familyHeadName.errors" class="invalid-feedback">
+                       <div *ngIf="f.familyHeadName.errors.required">family Head Name is required</div>
+                      </div>
+                   </div>
+                   <div class="form-group">            
+                      <input type="text" class="form-control" [(ngModel)]="populationModel.sssmfamilyId" name="sssmfamilyId" placeholder="SSSMFamilyid" formControlName="sssmfamilyId" [ngClass]="{ 'is-invalid': submitted && f.sssmfamilyId.errors }">
+                      <div *ngIf="submitted && f.sssmfamilyId.errors" class="invalid-feedback">
+                       <div *ngIf="f.sssmfamilyId.errors.required">Family Id is required</div>
+                      </div>
+                   </div>
+                   <div class="form-group">                
+                      <input type="text" class="form-control" [(ngModel)]="populationModel.sssmmemberId" name="sssmmemberId" placeholder="SSSMMemberid" formControlName="sssmmemberId" [ngClass]="{ 'is-invalid': submitted && f.sssmmemberId.errors }">
+                      <div *ngIf="submitted && f.sssmmemberId.errors" class="invalid-feedback">
+                       <div *ngIf="f.sssmmemberId.errors.required">Member Id is required</div>
+                      </div>
+                   </div>
+                   <div class="form-group">                
+                      <input type="text" class="form-control" [(ngModel)]="populationModel.voterCardNo" name="voterCardNo" placeholder="Voter id" formControlName="voterCardNo" [ngClass]="{ 'is-invalid': submitted && f.voterCardNo.errors }">
+                      <div *ngIf="submitted && f.voterCardNo.errors" class="invalid-feedback">
+                       <div *ngIf="f.voterCardNo.errors.required">Voter Id is required</div>
+                      </div>
+                   </div>
+                   <div class="form-group row">
+                      <label for="inputEmail3" class="col-sm-6 col-form-label">Family Type </label>
+                      <div class="col-sm-6">
+                         <div class="form-check">
+                            <input class="form-check-input" type="radio" [(ngModel)]="populationModel.familyType" value="APL" name="familyType" formControlName="familyType">
+                            <label class="form-check-label">APL</label>
+                         </div>
+                         <div class="form-check">
+                            <input class="form-check-input" type="radio" [(ngModel)]="populationModel.familyType" value="BPL" name="familyType" formControlName="familyType" checked="">
+                            <label class="form-check-label">BPL</label>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="form-group">
+                      <select class="form-control" [(ngModel)]="populationModel.businessTypeId" name="businessTypeId" formControlName="businessTypeId" [ngClass]="{ 'is-invalid': submitted && f.businessTypeId.errors }">
+                      <option value="" disabled selected>- Select business Type -</option>
+                      <option value="{{bindList.businessTypeId}}" *ngFor="let bindList of getbusinessTypeData">{{bindList.businessTypeName}}</option>
+                      </select>
+                      <div *ngIf="submitted && f.businessTypeId.errors" class="invalid-feedback">
+                         <div *ngIf="f.businessTypeId.errors.required">Business Type is required</div>
+                        </div>
+                   </div>
+                </div>
+                <div class="col-md-4">
+                   <div class="form-group">                
+                      <input type="text" class="form-control" [(ngModel)]="populationModel.businessName" name="businessName" placeholder="Business Name" formControlName="businessName" [ngClass]="{ 'is-invalid': submitted && f.businessName.errors }">
+                      <div *ngIf="submitted && f.businessName.errors" class="invalid-feedback">
+                       <div *ngIf="f.businessName.errors.required">Business Name is required</div>
+                      </div>
+                   </div>
+                   <!-- general form elements -->
+                   <div class="form-group row">
+                      <label for="inputEmail3" class="col-sm-6 col-form-label">Marrittal Status </label>
+                      <div class="col-sm-6">
+                         <div class="form-check">
+                            <input class="form-check-input" type="radio" [(ngModel)]="populationModel.marritalStatus" value="Yes" name="marritalStatus" formControlName="marritalStatus">
+                            <label class="form-check-label">Yes</label>
+                         </div>
+                         <div class="form-check">
+                            <input class="form-check-input" type="radio" [(ngModel)]="populationModel.marritalStatus" value="No" name="marritalStatus" formControlName="marritalStatus" checked="">
+                            <label class="form-check-label">No</label>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="form-group">
+                      <select class="form-control" [(ngModel)]="populationModel.villageId" name="villageId" formControlName="villageId" [ngClass]="{ 'is-invalid': submitted && f.villageId.errors }">
+                      <option value="" disabled selected>- Select Village -</option>
+                      <option value="{{bindList.villageId}}" *ngFor="let bindList of getVillageData">{{bindList.villageName}}</option>
+                      </select>
+                      <div *ngIf="submitted && f.villageId.errors" class="invalid-feedback">
+                         <div *ngIf="f.villageId.errors.required">Village is required</div>
+                        </div>
+                   </div>
+                   <div class="form-group">                
+                      <input type="text" class="form-control" [(ngModel)]="populationModel.houseNo" name="houseNo" placeholder="House No" formControlName="houseNo" [ngClass]="{ 'is-invalid': submitted && f.houseNo.errors }">
+                      <div *ngIf="submitted && f.houseNo.errors" class="invalid-feedback">
+                       <div *ngIf="f.houseNo.errors.required">House No is required</div>
+                      </div>
+                   </div>
+                   <div class="form-group">                
+                      <input type="text" class="form-control" [(ngModel)]="populationModel.wardNo" name="wardNo" placeholder="Ward No" formControlName="wardNo" [ngClass]="{ 'is-invalid': submitted && f.wardNo.errors }">
+                      <div *ngIf="submitted && f.wardNo.errors" class="invalid-feedback">
+                       <div *ngIf="f.wardNo.errors.required">Ward No is required</div>
+                      </div> 
+                   </div>
+                   <div class="form-group">                
+                      <input type="text" class="form-control" [(ngModel)]="populationModel.contactNo " name="contactNo" placeholder="Contact" formControlName="contactNo" [ngClass]="{ 'is-invalid': submitted && f.contactNo.errors }">
+                      <div *ngIf="submitted && f.contactNo.errors" class="invalid-feedback">
+                       <div *ngIf="f.contactNo.errors.required">Contact No is required</div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+             <div class="modal-footer">
+                <div class="msgagr"></div>
+                <button class="btn btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary">{{submitText}}</button>
+             </div>
+             </form>
+          </div>
+       </div>
+       <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+ </div>
+ <!-- /.modal -->
+ <div class="content-wrapper">
+   <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#ffffff" type="ball-spin-clockwise">
+   </ngx-spinner>
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+       <div class="container-fluid">
+          <div class="row mb-2">
+             <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Population Information</h1>
+             </div>
+             <!-- /.col -->
+             <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                   <button type="button" style="margin-right: 10px;" class="btn btn-info" (click)="CreateNew()">
+                   <i class="fa fa-plus" aria-hidden="true"></i> New Registration
+                   </button>
+ 
+                   <button type="button"  class="btn btn-info" (click)="uploadExcel()">
+                      <i class="fa fa-upload" aria-hidden="true"></i> Import Data
+                      </button>
+                </ol>
+             </div>
+             <!-- /.col -->
+          </div>
+          <!-- /.row -->
+       </div>
+       <!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <section class="content">
+       <div class="container-fluid">
+          <div class="card">
+             <!-- /.card-header -->
+             <div class="card-body">
+                <div class="row">
+                   <div class="col-md-4 mb-2">
+                     <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder=" Start Searching... ">
+                    </div>
+                 </div>
+                <table class="table table-bordered table-striped">
+                   <thead>
+                      <tr>
+                         <th>#</th>
+                         <th>Voter Name</th>
+                         <th>Father</th>
+                         <th>Category</th>
+                         <th>Family Head</th>
+                         <th>Contact</th>
+                         <th>Village</th>
+                         <td>Action</td>
+                      </tr>
+                   </thead>
+                   <tbody>
+                      <tr *ngFor="let responce of responceData | paginate: {id:'dataTable',itemsPerPage:50, currentPage:pageNo, totalItems:totalRecords } | filter:searchText">
+                         <td>{{responce.srNo}}</td>
+                         <td>{{responce.name}}</td>
+                         <td>{{responce.father}} {{surname}}</td>
+                         <td>{{responce.category}}</td>
+                         <td>{{responce.familyHeadName}}</td>
+                         <td>{{responce.contactNo}}</td>
+                         <td>{{responce.villageName}}</td>
+                         <td>
+                            <div class="actionbtn">
+                               <span class="pointer" (click)="SelectedData(responce)"><i class="fa fa-edit"></i></span>  
+                               <span class="pointer" (click)="DeleteData(responce)"><i class="fa fa-trash"></i></span> 
+                            </div>
+                         </td>
+                      </tr>
+                   </tbody>
+                </table>
+                <div style="padding: 5px 0; ">
+                   <p style="float: left">Showing {{totalRecords}} entries</p>
+                   <pagination-controls id="dataTable" maxSize="50" directionLinks="true" (pageChange)="pageNo=$event" style="float: right;"></pagination-controls>
+                </div>
+             </div>
+             <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+       </div>
+    </section>
+ </div>

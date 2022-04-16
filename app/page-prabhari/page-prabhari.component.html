@@ -1,0 +1,229 @@
+<div class="modal fade" id="modal-default-booth-allot">
+   <div class="modal-dialog modal-lg ">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title">Boot Allot</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       
+       <div class="modal-body">
+         <form #model="ngForm" [formGroup]="submitForm2" (ngSubmit)="onAllotSubmit(bootAllotModel)">
+         <div class="row">   
+            <div class="col-md-6">    
+               <div class="form-group">   
+                 <select class="form-control" [(ngModel)]="bootAllotModel.boothNo" name="boothNo"  formControlName="boothNo" [ngClass]="{ 'is-invalid': submitted && f2.boothNo.errors }">
+                   <option value="" disabled selected>- Select Booth No -</option>
+                   <option value="{{bindList.boothNo}}" *ngFor="let bindList of getBoothNoData">{{bindList.boothName}}</option>
+                 </select>
+                 <div *ngIf="submitted && f2.boothNo.errors" class="invalid-feedback">
+                  <div *ngIf="f2.boothNo.errors.required">Booth No is required</div>
+               </div>
+               </div>
+             </div>      
+            <div class="col-md-6">    
+               <div class="form-group">                
+                  <input type="text" class="form-control" [(ngModel)]="bootAllotModel.areaName" name="areaName" placeholder="Alloted Area Name"  formControlName="areaName" [ngClass]="{ 'is-invalid': submitted && f2.areaName.errors }">
+                  <div *ngIf="submitted && f2.areaName.errors" class="invalid-feedback">
+                     <div *ngIf="f2.areaName.errors.required">Area Name is required</div>
+                  </div>
+               </div>
+            </div> 
+         </div> 
+ 
+       <div class="modal-footer">
+         <div class="msgagr"></div>
+         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>        
+         <button class="btn btn-primary">{{submitText}}</button>
+       </div>
+     </form>
+       </div>
+       
+     </div>
+     <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
+ </div>
+ 
+
+
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog modal-lg ">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title">Page Prabhari Form</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="submitForm" #model="ngForm" (ngSubmit)="onSubmit(submitForm.value)">
+           <div class="row">
+              <div class="col-md-6">
+                 <!-- general form elements -->
+                 <div class="form-group">
+                    <input type="text" class="form-control" [(ngModel)]="pageprabhariModel.pagePrabhariName" name="pagePrabhariName" placeholder="Name" formControlName="pagePrabhariName" [ngClass]="{ 'is-invalid': submitted && f.pagePrabhariName.errors }">
+                    <div *ngIf="submitted && f.pagePrabhariName.errors" class="invalid-feedback">
+                       <div *ngIf="f.pagePrabhariName.errors.required">Page Prabhari Name is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">
+                  <input type="text" class="form-control" [(ngModel)]="pageprabhariModel.surname" name="surname" placeholder="Surname" formControlName="surname" [ngClass]="{ 'is-invalid': submitted && f.surname.errors }">
+                  <div *ngIf="submitted && f.surname.errors" class="invalid-feedback">
+                     <div *ngIf="f.surname.errors.required">Surname is required</div>
+                  </div>
+                  </div>
+                 <div class="form-group">
+                    <input type="text" class="form-control" [(ngModel)]="pageprabhariModel.father" name="father" placeholder="Father Name" formControlName="father" [ngClass]="{ 'is-invalid': submitted && f.father.errors }">
+                    <div *ngIf="submitted && f.father.errors" class="invalid-feedback">
+                       <div *ngIf="f.father.errors.required">Father Name is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">
+                    <input type="text" class="form-control" [(ngModel)]="pageprabhariModel.caste" name="caste" placeholder="Caste" formControlName="caste" [ngClass]="{ 'is-invalid': submitted && f.caste.errors }">
+                    <div *ngIf="submitted && f.caste.errors" class="invalid-feedback">
+                       <div *ngIf="f.caste.errors.required">Agent Name is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">
+                    <select class="form-control" [(ngModel)]="pageprabhariModel.category" name="category"  formControlName="category" [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
+                       <option value="" disabled selected>- Select Category -</option>
+                       <option value="{{bindList.categoryId}}" *ngFor="let bindList of getCategoryData">{{bindList.categoryName}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
+                     <div *ngIf="f.category.errors.required">Category is required</div>
+                  </div>
+                 </div>
+              </div>
+              <div class="col-md-6">
+                 <!-- general form elements -->
+                 <div class="form-group">
+                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                     <!-- <input type="date" class="form-control" name="date" placeholder="dd/MM/yyyy"> -->
+                      <input type="text" class="form-control datetimepicker-input" [(ngModel)]="pageprabhariModel.dob" name="dob" placeholder="Date Of Birth" data-target="#reservationdate" formControlName="dob" [ngClass]="{ 'is-invalid': submitted && f.dob.errors }">
+                       <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                       </div>
+                        <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+                          <div *ngIf="f.dob.errors.required">Date of Birth is required</div>
+                       </div>
+                    </div>
+                 </div>
+                 <div class="form-group">
+                    <input type="text" class="form-control" [(ngModel)]="pageprabhariModel.contactNo" name="contactNo" placeholder="Mobile No" formControlName="contactNo" [ngClass]="{ 'is-invalid': submitted && f.contactNo.errors }">
+                    <div *ngIf="submitted && f.contactNo.errors" class="invalid-feedback">
+                       <div *ngIf="f.contactNo.errors.required">ContactNo is required</div>
+                    </div>
+                 </div>
+                 <div class="form-group">
+                    <select class="form-control" [(ngModel)]="pageprabhariModel.villageId" name="villageId"   formControlName="villageId" [ngClass]="{ 'is-invalid': submitted && f.villageId.errors }">
+                       <option value="" disabled selected>- Select Village -</option>
+                       <option value="{{bindList.villageId}}" *ngFor="let bindList of getVillageData">{{bindList.villageName}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.villageId.errors" class="invalid-feedback">
+                     <div *ngIf="f.villageId.errors.required">Village is required</div>
+                  </div>
+                 </div>
+                
+                 <div class="form-group">
+                  <input type='file' name="Photo" (change)="onSelectFile($event)">                  
+                  <img [src]="photo"  height="100" > <br/>
+                </div>
+              </div>
+           </div>
+           <div class="modal-footer">
+            <div class="msgagr"></div>
+            <button class="btn btn-default" data-dismiss="modal">Close</button>
+            <button class="btn btn-primary">{{submitText}}</button>
+           </div>
+          </form>
+        </div>
+        <!-- /.modal-content -->
+     </div>
+     <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+</div>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+     <div class="container-fluid">
+        <div class="row mb-2">
+           <div class="col-sm-6">
+              <h1 class="m-0 text-dark">Page Prabhari Form</h1>
+           </div>
+           <!-- /.col -->
+           <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <button type="button" class="btn btn-info" (click)="CreateNew()">
+                 <i class="fa fa-plus" aria-hidden="true"></i> New Page Prabhari
+                 </button>
+              </ol>
+           </div>
+           <!-- /.col -->
+        </div>
+        <!-- /.row -->
+     </div>
+     <!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+  <section class="content">
+     <div class="container-fluid">
+        <div class="card">
+           <!-- /.card-header -->
+           <div class="card-body">
+               
+               <div class="row">
+                 <div class="col-md-4 mb-2">
+                   <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder=" Start Searching... ">
+                  </div>
+               </div>
+              <table class="table table-bordered table-striped">
+                 <thead>
+                    <tr>
+                       <th>#</th>
+                       <th>Name</th>
+                       <th>Father</th>
+                       <th>Category</th>
+                       <th>Caste</th>
+                       <th>ContactNo</th>
+                       <th>Village</th>
+                       <th>Booth No</th>
+                       <th>Allocate Area</th>
+                       <td>Action</td>
+                    </tr>
+                 </thead>
+                 <tbody>
+                  <tr *ngFor="let responce of responceData | paginate: {id:'dataTable',itemsPerPage:10, currentPage:pageNo, totalItems:totalRecords } | filter:searchText">
+                       <td>{{responce.srNo}}</td>
+                       <td>{{responce.pagePrabhariName}}</td>
+                       <td>{{responce.father}} {{responce.surname}}</td>
+                       <td>{{responce.category}}</td>
+                       <td>{{responce.caste}}</td>
+                       <td>{{responce.contactNo}}</td>
+                       <td>{{responce.villageName}}</td>
+                       <td>{{responce.boothNo}}</td>
+                       <td>{{responce.areaName}}</td>
+                       <td>
+                        <div class="actionbtn">
+                           <span class="pointer" (click)="NewBoothAllot(responce)" title="Booth Allot"><i class="fa fa-plus"></i></span>  
+                           <span class="pointer" (click)="SelectedData(responce)"><i class="fa fa-edit"></i></span>  
+                           <span class="pointer" (click)="DeleteData(responce)"><i class="fa fa-trash"></i></span> 
+                        </div>
+                     </td>
+                    </tr>
+                        
+                 </tbody>
+              </table>
+              <div style="padding: 5px 0; ">
+               <p style="float: left">Showing {{totalRecords}} entries</p>
+                <pagination-controls id="dataTable" maxSize="10" directionLinks="true" (pageChange)="pageNo=$event" style="float: right;"></pagination-controls>
+             </div>
+           </div>
+           <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+     </div>
+  </section>
+</div>

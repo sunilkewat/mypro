@@ -1,0 +1,66 @@
+/* .actionbtn span {
+    margin: 0 7px;
+} */
+
+
+
+.table td, .table th{
+    padding:.30rem !important;
+ }
+ .table th{
+     font-size: 14px;
+ }
+ .table tbody{
+    font-size: 13px;
+}
+.pointer
+{
+    cursor:pointer;    
+    margin: 0px 5px;
+}
+
+.pointer:hover
+{
+   color: #007bff;
+}
+
+
+.content-header {
+    padding: 7px;
+}
+
+.modal-header {
+
+    padding: 0.5rem;
+   
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(2rem + 2px);
+    /* height: calc(2.25rem + 2px); */
+    padding: .375rem .75rem;
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 0px;
+   
+}
+
+.modal-header {
+    background: #17a2b8 !important;
+  color: #fff;
+}
+
+.form-check {
+    float: left;
+    margin: 8px 10px;
+}
+@media (min-width: 1200px){
+.modal-xl {
+    max-width: 1000px;
+}
+}
+.modal-xl {
+    max-width: 1000px;
+}

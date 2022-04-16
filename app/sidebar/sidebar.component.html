@@ -1,0 +1,70 @@
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a routerLink="home" class="brand-link">    
+      <h4 class="brand-text font-weight-light"> Rajniti | M.S. Palduna</h4>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="/src/assets/img/logo.png" class="img-circle elevation-2" alt="Image">
+        </div>
+        <div class="info">
+          <a routerLink="home" class="d-block">Admin</a>
+        </div>
+      </div> -->
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" *ngFor="let d of menuData">
+                    
+              <li class="nav-item">
+               <a routerLink="{{d.component}}" routerLinkActive="active" class="nav-link">
+                 <i class="{{d.icon}}"></i> {{d.menuName}}</a>
+             </li> 
+       </ul>
+
+        <!-- <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" *ngFor="let d of menuData">
+           <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-table"></i>
+                  <p>
+                    Tables
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview" style="display: none;">
+                  <li class="nav-item">
+                    <a href="pages/tables/simple.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Simple Tables</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="pages/tables/data.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>DataTables</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="pages/tables/jsgrid.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>jsGrid</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>           
+               <li class="nav-item">
+                <a routerLink="{{d.component}}" routerLinkActive="active" class="nav-link">
+                  <i class="{{d.icon}}"></i> {{d.menuName}}</a>
+              </li> 
+        </ul> -->
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

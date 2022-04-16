@@ -1,0 +1,245 @@
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title">Assembly Result Master</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+            <!-- <form #model="ngForm" (ngSubmit)="onSubmit(model.value)"> -->
+           <form [formGroup]="submitForm" #model="ngForm" (ngSubmit)="onSubmit(submitForm.value)">
+             <div class="row">
+
+               <div class="col-md-6">
+                  <!-- general form elements -->
+                  <div class="form-group">
+                    <Label>Assembly Name</Label>
+                    <select class="form-control" [(ngModel)]="AssemblyModel.electionId" name="electionId" formControlName="electionId" [ngClass]="{ 'is-invalid': submitted && f.electionId.errors }" >
+                     <option value="" disabled selected>- Select Parent Name -</option>
+                     <option value="{{bindList.electionId}}" *ngFor="let bindList of getData">{{bindList.electionName}} - {{bindList.electionYear}}</option>
+                  </select>
+                  <div *ngIf="submitted && f.electionId.errors" class="invalid-feedback">
+                   <div *ngIf="f.electionId.errors.required">Assembly Name is required</div>
+                  </div>
+                   </div>
+               </div>
+
+
+               <div class="col-md-6">
+                  <!-- general form elements -->
+                  <div class="form-group">
+                    <Label>Booth Name</Label>
+                    <select class="form-control" [(ngModel)]="AssemblyModel.boothNo" name="boothNo" formControlName="boothNo" [ngClass]="{ 'is-invalid': submitted && f.boothNo.errors }" >
+                     <option value="0" disabled selected>- Select Booth No -</option>
+                     <option value="{{bindList.boothNo}}" *ngFor="let bindList of getBoothNoData">{{bindList.boothName}}</option>
+                  </select>
+                  <div *ngIf="submitted && f.boothNo.errors" class="invalid-feedback">
+                   <div *ngIf="f.boothNo.errors.required">Booth No is required</div>
+                  </div>
+                   </div>
+               </div>
+
+                <div class="col-md-6">
+                   <!-- general form elements -->
+                   <div class="form-group">
+                     <Label>Congrss</Label>
+                      <input type="text" class="form-control" [(ngModel)]="AssemblyModel.congress" name="congress" formControlName="congress" placeholder="congress Vote" [ngClass]="{ 'is-invalid': submitted && f.congress.errors }">
+                      <div *ngIf="submitted && f.congress.errors" class="invalid-feedback">
+                       <div *ngIf="f.congress.errors.required">Congress voter is required</div>
+                   </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                  <!-- general form elements -->
+                  <div class="form-group">
+                     <Label>BJP</Label>
+                     <input type="text" class="form-control" [(ngModel)]="AssemblyModel.bjp" name="bjp" formControlName="bjp" placeholder="BJP Vote" [ngClass]="{ 'is-invalid': submitted && f.bjp.errors }">
+                     <div *ngIf="submitted && f.bjp.errors" class="invalid-feedback">
+                      <div *ngIf="f.bjp.errors.required">BJP Vote is required</div>
+                  </div>
+                   </div>
+               </div>
+
+               <div class="col-md-6">
+                  <!-- general form elements -->
+                  <div class="form-group">
+                     <Label>Others Vote</Label>
+                     <input type="text" class="form-control" [(ngModel)]="AssemblyModel.other" name="other" formControlName="other" placeholder="Other Vote" [ngClass]="{ 'is-invalid': submitted && f.other.errors }">
+                     <div *ngIf="submitted && f.other.errors" class="invalid-feedback">
+                      <div *ngIf="f.other.errors.required">Other Vote is required</div>
+                  </div>
+                   </div>
+               </div>
+             </div>
+             <div class="modal-footer">
+              <div class="msgagr"></div>
+              <button class="btn btn-default" data-dismiss="modal">Close</button>
+              <button class="btn btn-primary">{{submitText}}</button>
+             </div>
+             </form>  
+          </div>
+          <!-- /.modal-content -->
+       </div>
+       <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+  </div>
+  <div class="content-wrapper">
+   <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#ffffff" type="ball-spin-clockwise">
+   </ngx-spinner>
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+       <div class="container-fluid">
+          <div class="row mb-2">
+             <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Assembly Result </h1>
+             </div>
+             <!-- /.col -->
+             <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <button type="button" class="btn btn-info" (click)="CreateNew()">
+                   <i class="fa fa-plus" aria-hidden="true"></i> Add New Assembly Result 
+                   </button>
+
+                   <button type="button"  class="btn btn-info" (click)="uploadExcel()">
+                     <i class="fa fa-upload" aria-hidden="true"></i> Import Data
+                     </button>
+                </ol>
+             </div>
+             <!-- /.col -->
+          </div>
+          <!-- /.row -->
+       </div>
+       <!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <section class="content">
+       <div class="container-fluid">
+          <div class="card">
+             <!-- /.card-header -->
+             <div class="card-body">
+                <table class="table table-bordered table-striped">
+                   <thead>
+                      <tr> 
+                         <th>Assembly Name</th>
+                         <th>Booth No</th>
+                         <th>Congress</th>
+                         <th>BJP</th>
+                         <th>Other</th>
+                         <td>Action</td>
+                      </tr>
+                   </thead>
+                   <tbody>
+                    <tr *ngFor="let responce of responceData | paginate: {id:'dataTable',itemsPerPage:25, currentPage:pageNo, totalItems:totalRecords }">
+                         <td>{{responce.assemblyName}}</td>
+                         <td>{{responce.boothNo}}</td>
+                         <td>{{responce.congress}}</td>
+                         <td>{{responce.bjp}}</td>
+                         <td>{{responce.other}}</td> 
+                         <td>
+                          <div class="actionbtn">
+                           <span class="pointer" (click)="SelectedData(responce)"><i class="fa fa-edit"></i></span>  
+                           <span class="pointer" (click)="DeleteData(responce)"><i class="fa fa-trash"></i></span> 
+                          </div>
+                        </td>
+                      </tr>                    
+                   </tbody>
+                </table>
+  
+                <div style="padding: 5px 0; ">
+                 <p style="float: left">Showing {{totalRecords}} entries</p>
+                  <pagination-controls id="dataTable" maxSize="25" directionLinks="true" (pageChange)="pageNo=$event" style="float: right;"></pagination-controls>
+               </div>
+               
+                <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="default" type="ball-spin-clockwise">
+                </ngx-spinner>
+             </div>
+             <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+       </div>
+    </section>
+  </div>
+
+  <div class="modal fade" id="modal-excel_default">
+   <div class="modal-dialog modal-xl ">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Upload Data</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">      
+            
+            <div class="row">
+               <div class="col-md-12 row">                  
+                  <div class="col-md-9 row">
+                     <form style="display: flex;" [formGroup]="UploadForm" #model="ngForm" (ngSubmit)="onUpload(UploadForm.value)">
+                         
+                     <div class="col-md-6">
+                        <div class="form-group">            
+                           <input type="file" (change)="onChange($event)" #inputFile>     
+                        </div>   
+                     </div>      
+                     <div class="col-md-3">
+                        <div class="form-group">            
+                           <button type="button"  class="btn btn-default" (click)="ImportViewExcel()" style="padding: 0.125rem .75rem;">
+                              <i class="fa fa-upload" aria-hidden="true"></i> Upload
+                              </button>
+                        </div>   
+                     </div> 
+                     <div class="col-md-3">
+                        <button class="btn btn-primary" style="padding: 0.125rem .75rem;">
+                           <i class="fas fa-file-import" aria-hidden="true"></i> {{importText}}</button>
+                     </div> 
+                    </form>
+                  </div> 
+                  <div class="col-md-3 row">                     
+                     <div class="col-md-12">
+                        <button class="btn btn-primary" style="padding: 0.125rem .75rem;" (click)="exportexcelsheet()" >
+                           <i class="fa fa-download" aria-hidden="true"></i> Download Excel</button>
+                     </div> 
+                  </div>
+                  <!-- general form elements -->  
+                 
+               </div>
+
+               <div style="overflow: auto;height: 400px;">
+               <table id="excel-table" class="table table-bordered table-striped">
+                  <thead>
+                     <tr>
+                        <!-- <th>#</th> -->
+                        <th>BoothNo</th>
+                        <th>Congress</th>
+                        <th>BJP</th>
+                        <th>Other</th> 
+                        <th>Total</th> 
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr *ngFor="let responce of modelArray">
+                        <!-- <td>{{responce.srNo}}</td> -->
+                        <td>{{responce.boothNo}}</td>
+                        <td>{{responce.congress}}</td>
+                        <td>{{responce.bjp}}</td>
+                        <td>{{responce.other}}</td> 
+                        <td>{{responce.total}}</td> 
+                     </tr>
+                  </tbody>
+               </table>
+               </div>
+
+            </div>
+            <div class="modal-footer">
+              
+            </div> 
+         </div>
+      </div>
+      <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
+</div>
